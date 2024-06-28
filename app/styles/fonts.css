@@ -1,0 +1,15 @@
+@font-face {
+  font-display: swap;
+  font-family: 'Graphie';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/graphie-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Graphie';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/graphie-bold.woff2') format('woff2');
+}
