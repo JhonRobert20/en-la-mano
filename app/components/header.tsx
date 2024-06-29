@@ -33,8 +33,8 @@ export default function Header() {
           ref={ref}
           className={clsx(
             !isOpen && 'hidden',
-            'absolute top-full inset-x-0 mt-3 grid gap-3 p-5 pb-6 bg-neutral',
-            'rounded-3xl shadow-2xl text-center',
+            'absolute top-full inset-x-0 z-10 mt-3 grid gap-3 p-5 pb-6',
+            'bg-neutral rounded-3xl shadow-2xl text-center',
             'md:(static m-0 p-0 flex shadow-none text-3.5)',
             'lg:(gap-x-8 text-4)'
           )}
