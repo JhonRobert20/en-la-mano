@@ -32,6 +32,7 @@ img {
 
 button,
 input {
+  background: none;
   color: inherit;
   font-family: inherit;
   font-size: 100%;
@@ -40,7 +41,6 @@ input {
 
 input[type=number] {
   appearance: textfield;
-  background: none;
   border-radius: 9999px;
   border-width: 1px;
   font-size: 0.875rem;

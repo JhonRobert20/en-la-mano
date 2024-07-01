@@ -5,8 +5,8 @@ export default function Form() {
   return (
     <div
       className={clsx(
-        'max-w-83.75 mx-auto my-5 p-8 bg-neutral rounded-3xl text-primary',
-        'sm:(mr-7 w-48%) lg:mr-8 xl:mr-16'
+        'relative z-1 max-w-83.75 mx-auto my-5 p-8 bg-neutral rounded-3xl',
+        'text-primary sm:(mr-7 w-48%) lg:mr-8 xl:mr-16'
       )}
     >
       <h1 className="leading-none">
