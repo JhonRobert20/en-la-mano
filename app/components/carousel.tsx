@@ -1,16 +1,13 @@
 import clsx from 'clsx/lite'
 import useCarousel from '~/hooks/use-carousel'
+import type { Slide } from '~/types'
 
 interface Props {
-  slides: Array<{
-    id: string
-    cover: string
-    paragraph: Array<string | Array<string | { highlighting: string }>>
-  }>
+  slides: Slide[]
 }
 
 export default function Carousel({ slides }: Props) {
-  const { ref, scrollSnaps, selectedIndex, scrollTo } = useCarousel()
+  const { ref, selectedIndex, scrollTo } = useCarousel()
 
   return (
     <div className="absolute inset-0 h-fit my-auto hidden sm:block">
@@ -26,7 +23,7 @@ export default function Carousel({ slides }: Props) {
                 )}
               >
                 {paragraph.map(line => (
-                  <span className="block" key={crypto.randomUUID()}>
+                  <span className="block" key={`${id}-${line}`}>
                     {typeof line === 'string'
                       ? line
                       : line.map(content =>
@@ -35,7 +32,7 @@ export default function Carousel({ slides }: Props) {
                           ) : (
                             <strong
                               className="text-secondary"
-                              key={crypto.randomUUID()}
+                              key={`${id}-${content}`}
                             >
                               {content.highlighting}
                             </strong>
@@ -49,14 +46,14 @@ export default function Carousel({ slides }: Props) {
         </div>
       </div>
       <nav className="absolute left-36% bottom-4 flex gap-x-3">
-        {scrollSnaps.map((_, index) => (
+        {slides.map(({ id }, index) => (
           <button
             className={clsx(
               index === selectedIndex && 'bg-current',
               'size-2.25 border rounded-full cursor-pointer'
             )}
             type="button"
-            key={crypto.randomUUID()}
+            key={`slide-${id}`}
             onClick={() => scrollTo(index)}
           />
         ))}

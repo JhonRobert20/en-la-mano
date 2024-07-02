@@ -15,7 +15,7 @@ export default function App() {
       <body
         className={clsx(
           'bg-gradient-(linear shape-[108deg]) from-#b84df5 -from-18.5%',
-          'via-(decoration 34%) to-(primary 88.5%) bg-fixed text-neutral'
+          'via-(decoration 34%) to-(primary 88.5%) text-neutral'
         )}
       >
         <Header />

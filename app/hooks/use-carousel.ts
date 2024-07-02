@@ -4,28 +4,25 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { useCallback, useEffect, useState } from 'react'
 
 export default function useCarousel() {
-  const [ref, api] = useEmblaCarousel({ loop: true }, [autoplay()])
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [ref, api] = useEmblaCarousel(
+    { loop: true, breakpoints: { '(max-width: 639px)': { active: false } } },
+    [autoplay()]
+  )
 
-  const load = useCallback((api: EmblaCarouselType) => {
-    setScrollSnaps(api.scrollSnapList())
+  const handleSelect = useCallback((api: EmblaCarouselType) => {
     setSelectedIndex(api.selectedScrollSnap)
   }, [])
 
   useEffect(() => {
     if (api) {
-      load(api)
-
-      api.on('reInit', load).on('select', ({ selectedScrollSnap }) => {
-        setSelectedIndex(selectedScrollSnap)
-      })
+      handleSelect(api)
+      api.on('reInit', handleSelect).on('select', handleSelect)
     }
-  }, [api, load])
+  }, [api, handleSelect])
 
   return {
     ref,
-    scrollSnaps,
     selectedIndex,
     scrollTo: (index: number) => api?.scrollTo(index)
   }
