@@ -1,0 +1,19 @@
+@keyframes fit {
+  to {
+    background-image: inherit;
+    padding-block: 0.75rem;
+  }
+}
+
+@keyframes inherit-colors {
+  to {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
+@keyframes whiten-bg {
+  to {
+    background-image: url(/images/logo-light.webp);
+  }
+}

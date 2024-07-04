@@ -3,40 +3,48 @@ import clsx from 'clsx/lite'
 import useClickOutside from '~/hooks/use-click-outside'
 
 export default function Header() {
-  const { ref, isOpen, toggle } = useClickOutside()
+  const menu = useClickOutside()
 
   return (
-    <header className="p-5 sm:(py-6 px-7) lg:p-8 xl:px-16">
+    <header
+      className={clsx(
+        'sticky top-0 z-20 p-5 animate-scroll-fit-20 sm:(py-6 px-7) lg:p-8',
+        'xl:px-16'
+      )}
+    >
       <nav
         className={clsx(
-          'relative flex justify-between items-center bg-neutral py-3 px-5',
-          'rounded-full text-primary sm:px-7 lg:px-8 xl:px-16'
+          'flex justify-between items-center bg-neutral py-3 px-5',
+          'rounded-full text-primary animate-scroll-inherit-colors-10',
+          'sm:px-7 lg:px-8 xl:px-16'
         )}
       >
         <div className="flex items-center gap-x-1.5">
           <button
-            className="text-decoration md:hidden"
+            className={clsx(
+              'text-decoration animate-scroll-inherit-colors-12 md:hidden',
+              '-translate-x-0.5'
+            )}
             type="button"
-            onClick={toggle}
+            onClick={menu.toggle}
           >
             <IconMenu2 className="size-7" />
           </button>
-          <img
-            className="w-auto h-9 lg:h-12"
-            src="/images/logo.webp"
-            alt=""
-            width="234"
-            height="96"
+          <figure
+            className={clsx(
+              'w-22 h-9 bg-[url(/images/logo.webp)] bg-cover',
+              'animate-scroll-whiten-bg-10 lg:(w-29.25 h-12)'
+            )}
           />
         </div>
         <menu
-          ref={ref}
+          ref={menu.ref}
           className={clsx(
-            !isOpen && 'hidden',
-            'absolute top-full inset-x-0 z-10 mt-3 grid gap-3 p-5 pb-6',
-            'bg-neutral rounded-3xl shadow-2xl text-center',
-            'md:(static m-0 p-0 flex shadow-none text-3.5)',
-            'lg:(gap-x-8 text-4)'
+            !menu.isOpen && 'hidden',
+            'absolute top-full inset-x-5 z-10 mt-2 grid gap-3 p-5 pb-6',
+            'bg-neutral rounded-3xl shadow-2xl text-center text-primary',
+            'md:(static m-0 p-0 flex bg-transparent shadow-none text-3.5)',
+            'md:text-inherit lg:(gap-x-8 text-4)'
           )}
         >
           <li className="text-warning font-bold">Inicio</li>

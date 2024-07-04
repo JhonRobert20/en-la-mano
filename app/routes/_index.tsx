@@ -1,9 +1,10 @@
-import { json, type LoaderFunction, type MetaFunction } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
 import { randomUUID } from 'node:crypto'
+import { type LoaderFunction, type MetaFunction, json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 import Carousel from '~/components/carousel'
 import CTA from '~/components/cta'
 import Form from '~/components/form'
+import Services from '~/components/services'
 import type { Slide } from '~/types'
 
 export const meta: MetaFunction = () => [{ title: 'En La Mano' }]
@@ -28,6 +29,7 @@ export default function Index() {
         <Carousel slides={slides} />
       </section>
       <CTA />
+      <Services />
     </>
   )
 }

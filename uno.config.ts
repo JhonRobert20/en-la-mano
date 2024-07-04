@@ -9,6 +9,16 @@ async function css(filename: string) {
 }
 
 export default defineConfig({
+  rules: [
+    [
+      /^animate-scroll-([a-zA-Z-]+)-(\d+)$/,
+      ([, name, range]) => ({
+        animation: `${name} linear both`,
+        'animation-timeline': 'scroll()',
+        'animation-range': `0 ${Number(range) / 4}rem`
+      })
+    ]
+  ],
   theme: {
     colors: {
       neutral: '#f3f3f3',
@@ -27,7 +37,11 @@ export default defineConfig({
     {
       layer: 'base',
       getCSS: async () => await css('base')
+    },
+    {
+      layer: 'animations',
+      getCSS: async () => await css('animations')
     }
   ],
-  layers: { preflights: 1, base: 2, default: 3 }
+  layers: { preflights: 1, base: 2, default: 3, animations: 4 }
 })

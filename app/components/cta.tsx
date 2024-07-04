@@ -19,7 +19,7 @@ const requirements = [
 
 export default function CTA() {
   return (
-    <section className="my-20 px-5 text-center sm:px-6 lg:(px-8 my-24)">
+    <section className="my-20 px-5 text-center sm:px-7 lg:px-8">
       <h2 className="text-7.5 sm:text-10">
         Tu préstamo en{' '}
         <strong className="font-extrabold text-secondary">3 pasos</strong>
@@ -56,14 +56,15 @@ export default function CTA() {
       <div
         className={clsx(
           'max-w-290.5 mx-auto grid gap-y-4 gap-x-20 px-5 text-lg/[1.125]',
-          'text-left sm:(grid-cols-2 justify-center px-6) lg:(grid-cols-3 px-8)',
+          'text-left sm:(grid-cols-2 justify-center px-7) lg:(grid-cols-3 px-8)',
           'xl:pl-0'
         )}
       >
         <ul
-          className={
-            'size-fit ml-auto grid gap-y-4 pl-1em sm:col-start-2 lg:col-start-1'
-          }
+          className={clsx(
+            'size-fit grid gap-y-4 pl-1em sm:(ml-auto col-start-2)',
+            'lg:col-start-1'
+          )}
         >
           {requirements.slice(0, 3).map(requirement => (
             <li className={clsx('[&::marker]:c-warning')} key={requirement}>

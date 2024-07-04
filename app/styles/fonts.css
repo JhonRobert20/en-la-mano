@@ -37,3 +37,11 @@
   font-weight: 800;
   src: url('/fonts/graphie-extrabold.woff2') format('woff2');
 }
+
+@font-face {
+  font-display: swap;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  src: url(/fonts/manrope.woff2) format('woff2-variations');
+}

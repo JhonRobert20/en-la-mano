@@ -1,4 +1,10 @@
-import { Links, Meta, Outlet, Scripts } from '@remix-run/react'
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration
+} from '@remix-run/react'
 import clsx from 'clsx/lite'
 import 'virtual:uno.css'
 import Header from './components/header'
@@ -22,6 +28,7 @@ export default function App() {
         <main>
           <Outlet />
         </main>
+        <ScrollRestoration />
         <Scripts />
       </body>
     </html>

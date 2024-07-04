@@ -18,9 +18,13 @@ export default function Form() {
         </strong>{' '}
         hasta en 24 cuotas
       </h1>
-      <form className="mt-10 w-61">
+      <form className="mt-10 w-61 font-[Manrope]">
         <input type="number" placeholder="Cédula (sin puntos ni guiones)" />
-        <input className="mt-3 mb-5" type="number" placeholder="Celular" />
+        <input
+          className="mt-3 mb-5 border-warning outline-warning"
+          type="number"
+          placeholder="Celular"
+        />
         <label className="mb-8 flex gap-x-2 text-xs">
           <input className="mt-0.5 flex-shrink-0" type="checkbox" />
           <span className="[&_strong]:font-semibold">
@@ -31,13 +35,13 @@ export default function Form() {
         </label>
         <button
           className={clsx(
-            'flex gap-x-3 bg-warning py-2 pl-5 pr-2.5 rounded-full',
+            'flex gap-x-3 bg-warning py-2 pl-5 pr-3 rounded-full',
             'text-neutral'
           )}
           type="submit"
         >
           Solicitar efectivo
-          <figure className="bg-neutral rounded-full text-warning">
+          <figure className="flex bg-neutral rounded-full text-warning">
             <IconArrowNarrowRight />
           </figure>
         </button>
