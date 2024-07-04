@@ -9,8 +9,10 @@ const data = [
 
 export default function Services() {
   return (
-    <section className="my-28 px-10 text-center sm:px-14 lg:px-16 xl:px-32">
-      <h2 className="mb-14 text-7 sm:text-10">
+    <section
+      className={'my-28 px-10 text-center sm:(px-14 mb-36) lg:px-16 xl:px-32'}
+    >
+      <h2 className="mb-14 text-6.25 sm:text-10">
         Conocé nuestros{' '}
         <strong className="font-extrabold text-secondary">servicios</strong>
       </h2>
@@ -21,6 +23,7 @@ export default function Services() {
               className="mb-4 h-67 object-cover rounded-3xl"
               src={`/images/${id}.webp`}
               alt=""
+              loading="lazy"
             />
             <span
               className={

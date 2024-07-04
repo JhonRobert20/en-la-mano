@@ -26,6 +26,9 @@ export default defineConfig({
       secondary: '#c644fd',
       decoration: '#3f0b79',
       warning: '#ff7100'
+    },
+    fontFamily: {
+      sans: ['Manrope', 'sans-serif']
     }
   },
   transformers: [transformerVariantGroup()],

@@ -7,6 +7,7 @@ import {
 } from '@remix-run/react'
 import clsx from 'clsx/lite'
 import 'virtual:uno.css'
+import Footer from './components/footer'
 import Header from './components/header'
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
         <main>
           <Outlet />
         </main>
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>

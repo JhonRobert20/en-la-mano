@@ -18,7 +18,7 @@ export default function Form() {
         </strong>{' '}
         hasta en 24 cuotas
       </h1>
-      <form className="mt-10 w-61 font-[Manrope]">
+      <form className="mt-10 w-61 font-sans">
         <input type="number" placeholder="Cédula (sin puntos ni guiones)" />
         <input
           className="mt-3 mb-5 border-warning outline-warning"

@@ -21,6 +21,10 @@ menu {
   list-style: none;
 }
 
+a {
+  color: inherit;
+}
+
 img,
 svg {
   vertical-align: middle;
