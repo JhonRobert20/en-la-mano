@@ -1,22 +1,18 @@
-import { randomUUID } from 'node:crypto'
 import { type LoaderFunction, type MetaFunction, json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import Carousel from '~/components/carousel'
 import CTA from '~/components/cta'
 import Form from '~/components/form'
 import Services from '~/components/services'
-import type { Slide } from '~/types'
+import db from '~/db'
+import type { Slide } from '~/lib/types'
 
 export const meta: MetaFunction = () => [{ title: 'En La Mano' }]
 
-export const loader: LoaderFunction = () => {
-  return json(
-    Array.from({ length: 3 }, () => ({
-      id: randomUUID(),
-      cover: '/images/hero.webp',
-      paragraph: ['Dale vida', ['a tus', { highlighting: 'proyectos' }]]
-    }))
-  )
+export const loader: LoaderFunction = async () => {
+  const slides = await db.get<Slide[]>('slides', true)
+
+  return json(slides)
 }
 
 export default function Index() {

@@ -1,6 +1,6 @@
 import clsx from 'clsx/lite'
-import useCarousel from '~/hooks/use-carousel'
-import type { Slide } from '~/types'
+import useCarousel from '~/lib/hooks/use-carousel'
+import type { Slide } from '~/lib/types'
 
 interface Props {
   slides: Slide[]

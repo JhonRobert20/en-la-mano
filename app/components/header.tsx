@@ -1,6 +1,6 @@
 import { IconMenu2 } from '@tabler/icons-react'
 import clsx from 'clsx/lite'
-import useClickOutside from '~/hooks/use-click-outside'
+import useClickOutside from '~/lib/hooks/use-click-outside'
 
 export default function Header() {
   const menu = useClickOutside()

@@ -8,6 +8,7 @@
 html {
   font-family: Graphie, sans-serif;
   line-height: 1.5;
+  min-height: 100svh;
   min-width: 375px;
 }
 
@@ -45,13 +46,21 @@ input {
   outline-color: currentColor;
 }
 
-input[type=number] {
-  appearance: textfield;
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+input:not([type=checkbox]) {
   border-radius: 9999px;
   border-width: 1px;
   font-size: 0.875rem;
   padding: 0.75rem 1.25rem;
   width: 100%;
+
+}
+
+input[type=number] {
+  appearance: textfield;
 }
 
 input[type=number]::-webkit-inner-spin-button,
