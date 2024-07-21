@@ -1,0 +1,36 @@
+---
+import Image from './Image.astro'
+
+interface Props {
+  banner: string
+  label: string
+}
+
+const { banner, label } = Astro.props
+---
+
+<section>
+  <Image src={banner} />
+  <h1>{label}</h1>
+</section>
+
+<style>
+  section {
+    position: relative;
+
+    img {
+      height: 400px;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  h1 {
+    bottom: 24px;
+    font-size: 40px;
+    inset-inline: 20px;
+    line-height: 1.45;
+    position: absolute;
+    text-align: center;
+  }
+</style>

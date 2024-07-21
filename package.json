@@ -1,36 +1,23 @@
 {
   "name": "en-la-mano",
-  "private": true,
-  "version": "1.0.0",
   "type": "module",
+  "version": "1.0.0",
   "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
-    "start": "remix-serve build/server/index.js"
+    "dev": "astro dev",
+    "build": "astro build",
+    "start": "node ./dist/server/entry.mjs"
   },
   "dependencies": {
-    "@remix-run/node": "^2.10.2",
-    "@remix-run/react": "^2.10.2",
-    "@remix-run/serve": "^2.10.2",
-    "@tabler/icons-react": "^3.10.0",
-    "clsx": "^2.1.1",
-    "embla-carousel": "^8.1.6",
-    "embla-carousel-autoplay": "^8.1.6",
-    "embla-carousel-react": "^8.1.6",
-    "isbot": "^5.1.12",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "sqlite3": "^5.1.7"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@remix-run/dev": "^2.10.2",
+    "@astrojs/node": "^8.3.2",
+    "@astrojs/react": "^3.6.0",
+    "@keystatic/astro": "^5.0.0",
+    "@keystatic/core": "^0.5.27",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "typescript": "^5.5.3",
-    "unocss": "^0.61.3",
-    "vite": "^5.3.3",
-    "vite-plugin-restart": "^0.4.1",
-    "vite-tsconfig-paths": "^4.3.2"
+    "astro": "^4.11.6",
+    "embla-carousel": "^8.1.6",
+    "embla-carousel-autoplay": "^8.1.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

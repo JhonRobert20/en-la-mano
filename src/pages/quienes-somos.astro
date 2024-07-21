@@ -1,0 +1,9 @@
+---
+import banner from '@/data/banners/quienes-somos.json'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Hero from '@/components/Hero.astro'
+---
+
+<BaseLayout title="Quiénes somos">
+  <Hero banner={banner['quienes-somos']} label="Quiénes somos" />
+</BaseLayout>

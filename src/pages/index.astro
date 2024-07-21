@@ -1,0 +1,94 @@
+---
+import { Content } from '@/data/forms/inicio.md'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Carousel from '@/components/Carousel.astro'
+import Button from '@/components/Button.astro'
+import CallToAction from '@/components/CallToAction.astro'
+---
+
+<BaseLayout title="En La Mano" sticky>
+  <div>
+    <Carousel />
+    <section>
+      <Content />
+      <form>
+        <input type="number" placeholder="Cédula (sin puntos ni guiones)" />
+        <input type="number" placeholder="Celular" />
+        <label>
+          <input type="checkbox" />
+          <span>
+            Leí y acepto los <a>Términos y Condiciones</a> y
+            <a>Política de Privacidad</a>. Sujeto a aprobación política
+          </span>
+        </label>
+        <Button type="submit">Solicitar efectivo</Button>
+      </form>
+    </section>
+  </div>
+  <CallToAction />
+</BaseLayout>
+
+<style>
+  div {
+    position: relative;
+  }
+
+  section {
+    background-color: rgb(var(--color-neutral));
+    border-radius: 24px;
+    color: rgb(var(--color-primary));
+    margin: 20px;
+    padding: 32px;
+    position: relative;
+
+    @media (width >= 640px) {
+      margin-inline: auto 40px;
+      max-width: 336px;
+    }
+
+    @media (width >= 1280px) {
+      margin-right: 60px;
+    }
+
+    strong {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    p:first-child {
+      line-height: 1;
+    }
+
+    p:has(strong) {
+      margin-top: 16px;
+    }
+  }
+
+  form {
+    margin-top: 44px;
+  }
+
+  label {
+    column-gap: 8px;
+    display: grid;
+    font: 11px 'Manrope';
+    grid-auto-flow: column;
+    margin-block: 20px 32px;
+
+    input {
+      margin-top: 2px;
+    }
+
+    a {
+      font-weight: 600;
+      text-decoration: underline;
+    }
+  }
+
+  input:nth-child(2) {
+    border-color: rgb(var(--color-tertiary));
+    margin-top: 12px;
+    outline-color: rgb(var(--color-tertiary));
+  }
+</style>

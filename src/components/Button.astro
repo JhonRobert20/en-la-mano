@@ -1,0 +1,50 @@
+---
+interface Props {
+  type?: 'submit'
+}
+
+const { type } = Astro.props
+---
+
+<button type={type}>
+  <span>
+    <slot />
+  </span>
+  <figure>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" fill="none">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.25"
+        d="M10.667 4H1.333M7.75 6.917S10.667 4.769 10.667 4c0-.769-2.917-2.917-2.917-2.917"
+      ></path>
+    </svg>
+  </figure>
+</button>
+
+<style>
+  button {
+    align-items: center;
+    background-color: rgb(var(--color-tertiary));
+    border-radius: 32px;
+    color: rgb(var(--color-neutral));
+    column-gap: 8px;
+    display: flex;
+    height: 32px;
+    line-height: 1;
+    padding-inline: 20px 10px;
+  }
+
+  figure {
+    display: grid;
+    background-color: rgb(var(--color-neutral));
+    border-radius: 50%;
+    height: 20px;
+    place-items: center;
+    width: 20px;
+  }
+
+  svg {
+    stroke: rgb(var(--color-tertiary));
+  }
+</style>

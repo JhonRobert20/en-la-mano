@@ -1,0 +1,72 @@
+---
+import styles from '@/styles/Carousel.module.css'
+import Image from './Image.astro'
+
+const slides = await Astro.glob('@/data/slides/*.md')
+---
+
+<section class={styles.carousel} id="embla">
+  <div class={styles.container}>
+    {
+      slides.map(({ frontmatter, Content }) => (
+        <figure class={styles.slide}>
+          <Image src={frontmatter.cover} loading="lazy" />
+          <figcaption>
+            <Content />
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+  <nav class={styles.nav} id="dots"></nav>
+</section>
+
+<script>
+  import EmblaCarousel from 'embla-carousel'
+  import Autoplay from 'embla-carousel-autoplay'
+
+  const emblaApi = EmblaCarousel(
+    document.getElementById('embla')!,
+    {
+      loop: true,
+      watchDrag: false,
+      breakpoints: { '(max-width: 639px)': { active: false } }
+    },
+    [Autoplay()]
+  )
+
+  if (emblaApi.scrollSnapList().length > 1) {
+    const dots = document.getElementById('dots')!
+
+    function addButtons() {
+      dots?.replaceChildren(
+        ...emblaApi.scrollSnapList().map((_, index) => {
+          const button = document.createElement('button')
+
+          button.addEventListener(
+            'click',
+            () => emblaApi.scrollTo(index),
+            false
+          )
+
+          return button
+        })
+      )
+    }
+
+    function toggle() {
+      const buttons = [...dots.children]
+
+      buttons[emblaApi.previousScrollSnap()].removeAttribute('class')
+      buttons[emblaApi.selectedScrollSnap()].className = 'active'
+    }
+
+    emblaApi
+      .on('init', addButtons)
+      .on('reInit', addButtons)
+      .on('init', toggle)
+      .on('reInit', toggle)
+      .on('select', toggle)
+      .on('destroy', () => dots.replaceChildren())
+  }
+</script>

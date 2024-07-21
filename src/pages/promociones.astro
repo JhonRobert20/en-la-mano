@@ -1,0 +1,9 @@
+---
+import banner from '@/data/banners/promociones.json'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Hero from '@/components/Hero.astro'
+---
+
+<BaseLayout title="Promociones">
+  <Hero banner={banner.promociones} label="Promociones" />
+</BaseLayout>

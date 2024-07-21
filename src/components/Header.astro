@@ -1,0 +1,65 @@
+---
+import logo from '@/data/logo.json'
+import styles from '@/styles/Header.module.css'
+import Image from './Image.astro'
+import SocialMedia from './SocialMedia.astro'
+
+interface Props {
+  sticky?: boolean
+}
+
+const { sticky } = Astro.props
+const { pathname } = Astro.url
+
+const links = [
+  ['/', 'Inicio'],
+  ['/promociones', 'Promociones'],
+  ['/quienes-somos', 'Quiénes somos'],
+  ['/reclamos', 'Reclamos'],
+  ['/preguntas-frecuentes', 'Preguntas frecuentes'],
+  ['/contacto', 'Contacto']
+]
+---
+
+<header class:list={[styles.header, { [styles.sticky]: sticky }]}>
+  <nav class={styles.container}>
+    <button id="menu-button">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4 6l16 0"></path>
+        <path d="M4 12l16 0"></path>
+        <path d="M4 18l16 0"></path>
+      </svg>
+    </button>
+    <Image src={sticky ? logo.dark : logo.light} animate />
+    <ul class={styles.menu} id="menu">
+      {
+        links.map(([link, label]) => (
+          <li>
+            <a
+              class:list={[{ [styles.active]: link === pathname }]}
+              href={link}
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <SocialMedia />
+  </nav>
+</header>
+
+<script>
+  document.getElementById('menu-button')?.addEventListener('click', () => {
+    document.getElementById('menu')?.classList.toggle('visible')
+  })
+</script>
