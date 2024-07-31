@@ -1,13 +1,10 @@
 ---
-import Header from '@/components/Header.astro'
-import '@/styles/global.css'
-
 interface Props {
   title: string
-  sticky?: boolean
+  class?: string
 }
 
-const { title, sticky } = Astro.props
+const { title, class: className } = Astro.props
 ---
 
 <html lang="es">
@@ -15,11 +12,15 @@ const { title, sticky } = Astro.props
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <slot name="head" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
   </head>
-  <body>
-    <Header sticky={sticky} />
-    <main>
-      <slot />
-    </main>
+  <body
+    class:list={[
+      'bg-primary bg-linear-gradient bg-fixed text-neutral',
+      className
+    ]}
+  >
+    <slot />
   </body>
 </html>

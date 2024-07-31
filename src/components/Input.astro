@@ -1,0 +1,18 @@
+---
+interface Props {
+  class?: string
+  type: 'text' | 'number'
+  placeholder: string
+}
+
+const { class: className, type, placeholder } = Astro.props
+---
+
+<input
+  class:list={[
+    'w-full h-10 px-5 bg-transparent border rounded-full text-xs',
+    className || 'border-primary outline-primary'
+  ]}
+  type={type}
+  placeholder={placeholder}
+/>

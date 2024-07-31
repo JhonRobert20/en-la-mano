@@ -1,94 +1,80 @@
 ---
-import { Content } from '@/data/forms/inicio.md'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import Carousel from '@/components/Carousel.astro'
+import { marked } from 'marked'
+import db from '@/db'
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import Carousel from '@/components/Carousel'
+import Input from '@/components/Input.astro'
 import Button from '@/components/Button.astro'
-import CallToAction from '@/components/CallToAction.astro'
+import Steps from '@/components/Steps.astro'
+import Promotions from '@/components/Promotions.astro'
+
+interface Data {
+  slides: Slide[]
+  formContent: string
+  steps: Steps
+}
+
+const { slides, formContent, steps } = db.get<Data>('inicio')!
 ---
 
-<BaseLayout title="En La Mano" sticky>
-  <div>
-    <Carousel />
-    <section>
-      <Content />
-      <form>
-        <input type="number" placeholder="Cédula (sin puntos ni guiones)" />
-        <input type="number" placeholder="Celular" />
-        <label>
-          <input type="checkbox" />
+<SiteLayout sticky>
+  <div class="relative overflow-hidden">
+    <Carousel slides={slides} client:media="(min-width: 640px)" />
+    <section
+      class:list={[
+        'relative m-5 p-8 bg-neutral rounded-3xl text-primary',
+        '[&_strong]:font-extrabold [&_strong]:text-[2.5rem]/[1]',
+        'sm:max-w-[21rem] sm:ml-auto sm:mr-10 xl:mr-15'
+      ]}
+    >
+      <h2 class="mb-4 leading-none">Solicitá efectivo</h2>
+      <Fragment set:html={marked.parse(formContent, { breaks: true })} />
+      <form class="mt-11 font-manrope">
+        <Input type="number" placeholder="Cédula (sin puntos ni guiones)" />
+        <Input
+          class="mt-3 text-warning border-warning outline-warning"
+          type="number"
+          placeholder="Celular"
+        />
+        <label
+          class:list={[
+            'mt-5 mb-9 grid grid-flow-col gap-x-2 text-[0.625rem]',
+            'text-primary/90'
+          ]}
+        >
+          <input
+            class:list={[
+              'mt-0.5 appearance-none size-3 bg-contain border border-primary',
+              'rounded checked:bg-[url(/icons/check.svg)]'
+            ]}
+            type="checkbox"
+          />
           <span>
-            Leí y acepto los <a>Términos y Condiciones</a> y
-            <a>Política de Privacidad</a>. Sujeto a aprobación política
+            Leí y acepto los <a
+              class="inline-flex font-medium underline hover:opacity-90"
+              href="/terminos-y-condiciones"
+            >
+              Términos y Condiciones
+            </a> y
+            <a
+              class="inline-flex font-medium underline hover:opacity-90"
+              href="/politica-de-privacidad"
+            >
+              Política de Privacidad
+            </a>. Sujeto a aprobación política
           </span>
         </label>
-        <Button type="submit">Solicitar efectivo</Button>
+        <Button>Solicitar efectivo</Button>
       </form>
     </section>
   </div>
-  <CallToAction />
-</BaseLayout>
-
-<style>
-  div {
-    position: relative;
-  }
-
-  section {
-    background-color: rgb(var(--color-neutral));
-    border-radius: 24px;
-    color: rgb(var(--color-primary));
-    margin: 20px;
-    padding: 32px;
-    position: relative;
-
-    @media (width >= 640px) {
-      margin-inline: auto 40px;
-      max-width: 336px;
-    }
-
-    @media (width >= 1280px) {
-      margin-right: 60px;
-    }
-
-    strong {
-      font-size: 40px;
-      font-weight: 800;
-      line-height: 1;
-    }
-
-    p:first-child {
-      line-height: 1;
-    }
-
-    p:has(strong) {
-      margin-top: 16px;
-    }
-  }
-
-  form {
-    margin-top: 44px;
-  }
-
-  label {
-    column-gap: 8px;
-    display: grid;
-    font: 11px 'Manrope';
-    grid-auto-flow: column;
-    margin-block: 20px 32px;
-
-    input {
-      margin-top: 2px;
-    }
-
-    a {
-      font-weight: 600;
-      text-decoration: underline;
-    }
-  }
-
-  input:nth-child(2) {
-    border-color: rgb(var(--color-tertiary));
-    margin-top: 12px;
-    outline-color: rgb(var(--color-tertiary));
-  }
-</style>
+  <Steps {...steps} />
+  <section class="my-28 text-center xl:my-32">
+    <h2 class="mx-5 text-3xl sm:text-[2.5rem]/normal">
+      Conocé nuestras <strong class="font-extrabold text-secondary">
+        promociones
+      </strong>
+    </h2>
+    <Promotions class="mt-14" limit={3} />
+  </section>
+</SiteLayout>

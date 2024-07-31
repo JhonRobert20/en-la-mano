@@ -1,0 +1,59 @@
+---
+import { marked } from 'marked'
+import Image from './Image.astro'
+
+const { title, list, requirements } = Astro.props as Steps
+---
+
+<section class="my-20 px-5 text-center sm:px-10 lg:px-20">
+  <h2
+    class:list={[
+      'text-3xl/normal [&_strong]:font-extrabold [&_strong]:text-secondary',
+      'sm:text-[2.5rem]'
+    ]}
+    set:html={marked.parseInline(title)}
+  />
+  <div class="mt-10 grid justify-center gap-10 md:grid-flow-col">
+    {
+      list.map(([image, content], index) => (
+        <>
+          {index > 0 && (
+            <Image
+              class="mx-auto transform rotate-90 md:mt-8 md:rotate-0"
+              src="/icons/chevron.svg"
+            />
+          )}
+          <article>
+            <figure
+              class:list={[
+                'size-[4.75rem] mx-auto grid place-items-center border',
+                'border-secondary rounded-full'
+              ]}
+            >
+              <Image class="w-[2.125rem]" src={`/assets/${image}`} />
+            </figure>
+            <p
+              class="mt-4 font-light leading-[1.15]"
+              set:html={marked.parseInline(content, { breaks: true })}
+            />
+          </article>
+        </>
+      ))
+    }
+  </div>
+  <h3 class="mt-14 mb-7 font-bold text-2xl/loose">Requisitos</h3>
+  <ul
+    class:list={[
+      'max-w-5xl mx-auto list-disc pl-[1em] text-left font-light text-lg/5',
+      'marker:text-warning md:columns-2 md:gap-x-16 lg:columns-3'
+    ]}
+  >
+    {
+      requirements.map(requirement => (
+        <li class="mt-4 break-inside-avoid text-pretty first:mt-0">
+          {requirement}
+        </li>
+      ))
+    }
+  </ul>
+</section>

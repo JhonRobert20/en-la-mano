@@ -1,33 +1,20 @@
 ---
-import type { ImageMetadata } from 'astro'
-import Figure from './Figure.astro'
+import { inferRemoteSize } from 'astro:assets'
 
 interface Props {
+  class?: string
   src: string
-  alt?: string
-  loading?: 'eager' | 'lazy'
-  animate?: boolean
 }
 
-const { src, alt = '', loading, animate } = Astro.props
-
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/**/*.{webp,png,jpg,svg}'
-)
-
-const { default: image } = await images[src]()
+const { class: className, src } = Astro.props
+const { width, height } = await inferRemoteSize(`${Astro.url.origin}${src}`)
 ---
 
-{
-  animate ? (
-    <Figure src={image.src} width={image.width} height={image.height} />
-  ) : (
-    <img
-      src={image.src}
-      alt={alt}
-      width={image.width}
-      height={image.height}
-      loading={loading}
-    />
-  )
-}
+<img
+  class={className}
+  src={src}
+  alt=""
+  width={width}
+  height={height}
+  loading="lazy"
+/>

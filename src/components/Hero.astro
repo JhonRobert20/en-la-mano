@@ -1,36 +1,23 @@
 ---
-import Image from './Image.astro'
-
 interface Props {
-  banner: string
+  image: string
   label: string
 }
 
-const { banner, label } = Astro.props
+const { image, label } = Astro.props
 ---
 
-<section>
-  <Image src={banner} />
-  <h1>{label}</h1>
+<section class="relative h-[25rem]">
+  <h1 class="absolute inset-x-5 bottom-6 text-center font-bold text-[2.5rem]">
+    {label}
+  </h1>
 </section>
 
-<style>
+<style define:vars={{ image: `url(/assets/${image})` }}>
   section {
-    position: relative;
-
-    img {
-      height: 400px;
-      object-fit: cover;
-      width: 100%;
-    }
-  }
-
-  h1 {
-    bottom: 24px;
-    font-size: 40px;
-    inset-inline: 20px;
-    line-height: 1.45;
-    position: absolute;
-    text-align: center;
+    background:
+      linear-gradient(45deg, #07024a, rgb(63, 11, 121, 0.45), transparent),
+      var(--image) center 45%;
+    background-size: cover;
   }
 </style>

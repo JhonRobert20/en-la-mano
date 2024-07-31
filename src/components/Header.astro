@@ -1,6 +1,6 @@
 ---
-import logo from '@/data/logo.json'
-import styles from '@/styles/Header.module.css'
+import IconMenu from './IconMenu.astro'
+import Logo from './Logo.astro'
 import Image from './Image.astro'
 import SocialMedia from './SocialMedia.astro'
 
@@ -21,31 +21,47 @@ const links = [
 ]
 ---
 
-<header class:list={[styles.header, { [styles.sticky]: sticky }]}>
-  <nav class={styles.container}>
-    <button id="menu-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="30"
-        height="30"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        viewBox="0 0 24 24"
-      >
-        <path d="M4 6l16 0"></path>
-        <path d="M4 12l16 0"></path>
-        <path d="M4 18l16 0"></path>
-      </svg>
+<header
+  class:list={[
+    sticky ? 'sticky top-0 bg-linear-gradient bg-fixed' : 'absolute w-full',
+    'z-10 p-5 sm:py-7 sm:px-10 xl:px-15'
+  ]}
+>
+  <nav
+    class:list={[
+      'flex justify-between items-center py-3 px-5 rounded-full',
+      { 'bg-neutral text-primary scroll-reset': sticky },
+      'sm:px-10'
+    ]}
+  >
+    <button class="lg:hidden" id="menu-button">
+      <IconMenu />
     </button>
-    <Image src={sticky ? logo.dark : logo.light} animate />
-    <ul class={styles.menu} id="menu">
+    {
+      sticky ? (
+        <Logo />
+      ) : (
+        <Image class="w-auto h-12" src="/assets/logo-light.webp" />
+      )
+    }
+    <ul
+      class:list={[
+        'flex gap-x-8 lg:text-sm xl:text-base -lg:absolute -lg:top-full',
+        '-lg:inset-x-0 -lg:hidden -lg:flex-col -lg:gap-y-4 -lg:pt-5 -lg:pb-6',
+        '-lg:bg-linear-gradient -lg:bg-fixed -lg:text-center -lg:text-lg',
+        '-lg:text-neutral'
+      ]}
+      id="menu"
+    >
       {
         links.map(([link, label]) => (
           <li>
             <a
-              class:list={[{ [styles.active]: link === pathname }]}
+              class={
+                link === pathname
+                  ? 'font-bold text-warning'
+                  : 'transition-colors duration-100 hover:opacity-90'
+              }
               href={link}
             >
               {label}
@@ -54,12 +70,12 @@ const links = [
         ))
       }
     </ul>
-    <SocialMedia />
+    <SocialMedia neutral={!sticky} />
   </nav>
 </header>
 
 <script>
   document.getElementById('menu-button')?.addEventListener('click', () => {
-    document.getElementById('menu')?.classList.toggle('visible')
+    document.getElementById('menu')?.classList.toggle('-lg:hidden')
   })
 </script>

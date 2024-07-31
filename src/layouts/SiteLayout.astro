@@ -1,0 +1,33 @@
+---
+import '@/styles/graphie.css'
+import 'tailwindcss/tailwind.css'
+import Header from '@/components/Header.astro'
+import BaseLayout from './BaseLayout.astro'
+
+interface Props {
+  sticky?: boolean
+}
+---
+
+<BaseLayout title="En La Mano">
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      href="/fonts/graphie-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/graphie-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </Fragment>
+  <Header sticky={Astro.props.sticky} />
+  <main>
+    <slot />
+  </main>
+</BaseLayout>

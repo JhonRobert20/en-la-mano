@@ -1,16 +1,28 @@
 ---
-import socialMedia from '@/data/social-media.json'
+import db from '@/db'
 
-const data: { facebook?: string; instagram?: string } = socialMedia
+interface Props {
+  neutral?: boolean
+}
+
+const socialMedia = db.get<SocialMedia>('social-media')
 ---
 
-<div>
-  <a href={data?.facebook} target="_blank" rel="noreferrer">
+<div
+  class:list={[
+    'flex gap-x-4',
+    { 'text-tertiary scroll-reset': !Astro.props.neutral }
+  ]}
+>
+  <a
+    class="transition-colors duration-75 hover:opacity-90"
+    href={socialMedia?.facebook}
+    target="_blank"
+    rel="noreferrer"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="28"
-      height="28"
-      fill="currentColor"
+      class="w-7 fill-current"
       viewBox="0 0 27 27"
     >
       <path
@@ -19,15 +31,15 @@ const data: { facebook?: string; instagram?: string } = socialMedia
     </svg>
   </a>
   <a
-    href={data?.instagram && `https://www.instagram.com/${data.instagram}/`}
+    class="transition-colors duration-75 hover:opacity-90"
+    href={socialMedia?.instagram &&
+      `https://www.instagram.com/${socialMedia.instagram}/`}
     target="_blank"
     rel="noreferrer"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="28"
-      height="28"
-      fill="currentColor"
+      class="w-7 fill-current"
       viewBox="0 0 27 27"
     >
       <path
@@ -37,10 +49,3 @@ const data: { facebook?: string; instagram?: string } = socialMedia
     </svg>
   </a>
 </div>
-
-<style>
-  div {
-    column-gap: 16px;
-    display: flex;
-  }
-</style>
