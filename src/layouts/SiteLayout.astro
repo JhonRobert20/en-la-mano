@@ -3,6 +3,7 @@ import '@/styles/graphie.css'
 import 'tailwindcss/tailwind.css'
 import Header from '@/components/Header.astro'
 import BaseLayout from './BaseLayout.astro'
+import Footer from '@/components/Footer.astro'
 
 interface Props {
   sticky?: boolean
@@ -30,4 +31,5 @@ interface Props {
   <main>
     <slot />
   </main>
+  <Footer />
 </BaseLayout>

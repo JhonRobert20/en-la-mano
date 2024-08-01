@@ -3,15 +3,18 @@ import db from '@/db'
 
 interface Props {
   neutral?: boolean
+  animate?: boolean
 }
 
+const { neutral, animate } = Astro.props
 const socialMedia = db.get<SocialMedia>('social-media')
 ---
 
 <div
   class:list={[
     'flex gap-x-4',
-    { 'text-tertiary scroll-reset': !Astro.props.neutral }
+    { 'text-tertiary': !neutral },
+    { 'scroll-reset': animate }
   ]}
 >
   <a

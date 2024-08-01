@@ -1,0 +1,72 @@
+---
+import Image from './Image.astro'
+import SocialMedia from './SocialMedia.astro'
+
+const data = [
+  ['pin', 'Av Italia 6878 - Montevideo, Uruguay'],
+  ['mail', 'contacto@enlamano.com.uy'],
+  ['mobile', '(+598) 091 866 454'],
+  ['phone', '(+598) 2605 4699']
+]
+---
+
+<footer
+  class:list={[
+    'grid gap-16 pt-10 px-5 pb-14 text-sm text-primary sm:px-10 lg:px-20',
+    'xl:flex xl:justify-between xl:px-25'
+  ]}
+>
+  <section class="font-semibold">
+    <h2 class="mb-10 text-[2.5rem]/none">Enlaces</h2>
+    <nav class="grid gap-y-4 gap-x-16 sm:grid-cols-[max-content_1fr]">
+      <a class="underline hover:opacity-90" href="/terminos-y-condiciones">
+        Términos y Condiciones
+      </a>
+      <a
+        class="underline hover:opacity-90 sm:row-start-2"
+        href="/preguntas-frecuentes"
+      >
+        Preguntas frecuentes
+      </a>
+      <a class="underline hover:opacity-90" href="/politicas-de-privacidad">
+        Políticas de Privacidad
+      </a>
+      <a class="underline hover:opacity-90" href="/politicas-de-seguridad">
+        Políticas de Seguridad
+      </a>
+    </nav>
+  </section>
+  <section>
+    <h2 class="mb-10 font-semibold text-[2.5rem]/none">Contacto</h2>
+    <div class="grid gap-16 md:flex md:items-end">
+      <div class="grid gap-y-4 gap-x-14 sm:grid-cols-[max-content_1fr]">
+        {
+          data.map(([icon, label]) => {
+            const isMail = icon === 'mail'
+            const Element = isMail ? 'a' : 'p'
+
+            return (
+              <Element
+                class:list={[
+                  'grid grid-cols-[20px_1fr] items-center gap-x-3',
+                  { 'row-start-2 hover:underline': isMail }
+                ]}
+                href={isMail ? 'mailto:contacto@enlamano.com.uy' : undefined}
+              >
+                <Image class="justify-self-center" src={`/icons/${icon}.svg`} />
+                {label}
+              </Element>
+            )
+          })
+        }
+      </div>
+      <SocialMedia />
+    </div>
+  </section>
+</footer>
+
+<style>
+  footer {
+    background: linear-gradient(88deg, #cbcbcb -19.5%, #f4f4f4 122.5%);
+  }
+</style>
