@@ -1,21 +1,22 @@
-import clsx from 'clsx/lite'
 import type { ComponentChildren } from 'preact'
+import clsx from 'clsx/lite'
 
 interface Props {
+  class?: string
   children: ComponentChildren
   onDelete?: () => void
 }
 
-export default function Item({ children, onDelete }: Props) {
+export default function Item({ class: className, children, onDelete }: Props) {
   return (
     <div
       class={clsx(
-        'flex flex-col gap-y-2.5 py-2.5 px-5 rounded-md odd:bg-tertiary/25',
-        'lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-5'
+        'grid gap-5 p-5 sm:grid-cols-[1fr_max-content] odd:bg-tertiary/40',
+        'even:bg-tertiary/20'
       )}
     >
-      {children}
-      <div class="self-end text-secondary lg:self-auto">
+      <div class={clsx('grid gap-7', className)}>{children}</div>
+      <div class="text-secondary">
         <button
           class="p-1.5 rounded-full hover:bg-tertiary/40"
           type="button"

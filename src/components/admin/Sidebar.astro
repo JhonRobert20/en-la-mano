@@ -6,7 +6,8 @@ const { pathname } = Astro.url
 const pages = [
   ['/admin', 'En La Mano'],
   ['/admin/inicio', 'Inicio'],
-  ['/admin/promociones', 'Promociones']
+  ['/admin/promociones', 'Promociones'],
+  ['/admin/quienes-somos', 'Quiénes somos']
 ]
 ---
 
@@ -15,7 +16,7 @@ const pages = [
 </button>
 <aside
   class:list={[
-    'fixed inset-y-0 w-60 px-3 py-4 bg-tertiary font-semibold',
+    'fixed inset-y-0 z-10 w-60 px-3 py-4 bg-tertiary font-semibold',
     'transition-transform -translate-x-full sm:translate-x-0'
   ]}
 >

@@ -1,4 +1,4 @@
-import { useSignal } from '@preact/signals'
+import useForm from '@/hooks/useForm'
 import Form from './Form'
 import Field from './Field'
 import ImageInput from './ImageInput'
@@ -9,46 +9,44 @@ interface Props {
 }
 
 export default function EnLaMano({ socialMedia }: Props) {
-  const hasChanges = useSignal(false)
+  const { hasChanges, handleChange } = useForm()
 
   return (
     <Form disabled={!hasChanges.value}>
       <Field label="Logo">
         <ImageInput
-          class="bg-neutral"
+          class="p-2.5 bg-neutral"
           label="Normal"
           name="logo"
           defaultValue="logo.webp"
-          onChange={() => (hasChanges.value = true)}
+          onChange={handleChange}
         />
         <ImageInput
-          class="ring-1"
+          class="p-2.5 ring-1"
           label="En blanco"
           name="logo-light"
           defaultValue="logo-light.webp"
-          onChange={() => (hasChanges.value = true)}
+          onChange={handleChange}
         />
       </Field>
       <Field label="Redes Sociales">
         <Input
+          class="lg:basis-1/2"
           type="url"
           name="facebook"
           label="Facebook"
           placeholder="URL del perfil"
           defaultValue={socialMedia?.facebook}
-          onInput={({ currentTarget: { value } }) => {
-            hasChanges.value = value !== (socialMedia?.facebook || '')
-          }}
+          onInput={handleChange}
         />
         <Input
+          class="lg:basis-1/3"
           type="text"
           name="instagram"
           label="Instagram"
           placeholder="Usuario"
           defaultValue={socialMedia?.instagram}
-          onInput={({ currentTarget: { value } }) => {
-            hasChanges.value = value !== (socialMedia?.instagram || '')
-          }}
+          onInput={handleChange}
         />
       </Field>
     </Form>

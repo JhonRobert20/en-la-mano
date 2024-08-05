@@ -11,9 +11,9 @@ export default function Form({ disabled, children }: Props) {
     <form className="grid gap-y-5" method="post" enctype="multipart/form-data">
       <button
         class={clsx(
-          'sticky top-5 block ml-auto px-5 py-2.5 bg-tertiary rounded-full',
-          'shadow font-semibold text-sm tracking-wide hover:bg-tertiary/90',
-          'disabled:bg-gray/75'
+          'sticky top-5 z-10 block ml-auto px-5 py-2.5 bg-tertiary',
+          'rounded-full shadow-xl font-semibold text-sm tracking-wide',
+          'hover:bg-tertiary/90 disabled:bg-gray/75'
         )}
         type="submit"
         disabled={disabled}

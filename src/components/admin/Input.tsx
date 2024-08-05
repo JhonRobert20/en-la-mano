@@ -1,6 +1,7 @@
 import clsx from 'clsx/lite'
 
 interface Props {
+  class?: string
   type: 'text' | 'url'
   name: string
   label?: string
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function Input({
+  class: className,
   type,
   name,
   label,
@@ -20,7 +22,7 @@ export default function Input({
   onInput
 }: Props) {
   return (
-    <label class="basis-11/12 font-medium lg:basis-2/5">
+    <label class={clsx('w-full font-medium', className)}>
       {label && (
         <>
           {label}

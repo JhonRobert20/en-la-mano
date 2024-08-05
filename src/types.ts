@@ -10,3 +10,10 @@ interface Steps {
   list: [string, string][]
   requirements: string[]
 }
+
+interface AboutUsData {
+  mission: string
+  vision: string
+  values: string
+  other: string[]
+}

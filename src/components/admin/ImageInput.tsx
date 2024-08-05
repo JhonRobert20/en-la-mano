@@ -19,14 +19,16 @@ export default function ImageInput({
   defaultValue,
   onChange
 }: Props) {
-  const url = useSignal<string | undefined>(`/assets/${defaultValue}`)
+  const url = useSignal(defaultValue && `/assets/${defaultValue}`)
   const callback = once(() => onChange && onChange())
 
   function handleChange(event: Event & { currentTarget: HTMLInputElement }) {
     const file = event.currentTarget.files?.item(0)
 
     if (file) {
-      if (url.value) URL.revokeObjectURL(url.value)
+      if (url.value && !url.value.startsWith('/assets')) {
+        URL.revokeObjectURL(url.value)
+      }
 
       url.value = URL.createObjectURL(file)
 
@@ -59,7 +61,7 @@ export default function ImageInput({
   }
 
   return (
-    <div class="basis-5/12 space-y-3">
+    <div class="space-y-3">
       {label && (
         <h2 class="font-medium">
           {label}
@@ -67,8 +69,8 @@ export default function ImageInput({
         </h2>
       )}
       {url.value && (
-        <figure class={clsx('p-2.5 rounded ring-inset ring-gray', className)}>
-          <img class="mx-auto rounded-sm" src={url} alt="" />
+        <figure class={clsx('rounded ring-inset ring-gray', className)}>
+          <img class="rounded-sm" src={url} alt="" />
         </figure>
       )}
       <label
