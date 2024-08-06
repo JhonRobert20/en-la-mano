@@ -31,17 +31,15 @@ export default function EnLaMano({ socialMedia }: Props) {
       </Field>
       <Field label="Redes Sociales">
         <Input
-          class="lg:basis-1/2"
-          type="url"
+          class="lg:basis-1/3"
           name="facebook"
           label="Facebook"
-          placeholder="URL del perfil"
+          placeholder="Usuario"
           defaultValue={socialMedia?.facebook}
           onInput={handleChange}
         />
         <Input
           class="lg:basis-1/3"
-          type="text"
           name="instagram"
           label="Instagram"
           placeholder="Usuario"

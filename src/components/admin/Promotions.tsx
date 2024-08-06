@@ -20,7 +20,7 @@ export default function Promotions({ description, data }: Props) {
     <Form disabled={!hasChanges.value}>
       <Field>
         <ImageInput
-          class="ring-1 lg:max-w-xs xl:max-w-md"
+          class="lg:max-w-xs xl:max-w-md"
           label="Banner"
           name="hero"
           defaultValue="hero-promociones.webp"
@@ -39,13 +39,7 @@ export default function Promotions({ description, data }: Props) {
         label="Promos"
         newItem={
           <>
-            <Input
-              class="max-w-xs"
-              type="text"
-              label="Nombre"
-              name="promos"
-              required
-            />
+            <Input class="max-w-xs" label="Nombre" name="promos" required />
             <ImageInput label="Banner" name="promos" required />
             <Editor label="Contenido" name="promos" html />
           </>
@@ -56,7 +50,6 @@ export default function Promotions({ description, data }: Props) {
           <Item onDelete={handleChange}>
             <Input
               class="max-w-xs"
-              type="text"
               label="Nombre"
               name="promos"
               defaultValue={name}

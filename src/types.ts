@@ -17,3 +17,8 @@ interface AboutUsData {
   values: string
   other: string[]
 }
+
+interface ClaimsData {
+  description: string
+  content: string
+}

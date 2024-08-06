@@ -53,7 +53,6 @@ export default function AboutUs({
       <Field>
         <Input
           class="lg:basis-5/12"
-          type="text"
           label="Nombre"
           name="other"
           defaultValue={other[0]}
@@ -62,7 +61,6 @@ export default function AboutUs({
         />
         <Input
           class="lg:basis-5/12"
-          type="text"
           label="Título"
           name="other"
           defaultValue={other[1]}

@@ -1,5 +1,14 @@
+---
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
 <button
   class:list={[
+    className,
     'h-8 flex items-center gap-x-2 pl-5 pr-2.5 bg-warning rounded-full',
     'text-neutral'
   ]}

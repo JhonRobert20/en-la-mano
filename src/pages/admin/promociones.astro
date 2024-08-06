@@ -25,5 +25,5 @@ if (Astro.request.method === 'POST') {
 ---
 
 <CMSLayout>
-  <Promotions description={description} data={data} client:idle />
+  <Promotions description={description} data={data} client:load />
 </CMSLayout>

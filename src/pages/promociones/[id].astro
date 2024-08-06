@@ -2,6 +2,7 @@
 import db from '@/db'
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import Hero from '@/components/Hero.astro'
+import Button from '@/components/Button.astro'
 
 const promotions = db.get<string[]>('promociones')!
 const data = promotions.find(([, id]) => id.slice(0, -5) === Astro.params.id)
@@ -13,11 +14,12 @@ if (!data) return new Response(null, { status: 404, statusText: 'Not found' })
   <Hero label={data[0]} image={data[1]} />
   <article
     class:list={[
-      'my-18 px-5 font-light text-center leading-tight sm:px-10 lg:px-20',
+      'mt-18 px-5 font-light text-center leading-tight sm:px-10 lg:px-20',
       'xl:px-25'
     ]}
     set:html={data[2]}
   />
+  <Button class="mt-11 mb-24 mx-auto">Solicitar promo</Button>
 </SiteLayout>
 
 <style>

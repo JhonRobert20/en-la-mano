@@ -2,7 +2,6 @@ import clsx from 'clsx/lite'
 
 interface Props {
   class?: string
-  type: 'text' | 'url'
   name: string
   label?: string
   placeholder?: string
@@ -13,7 +12,6 @@ interface Props {
 
 export default function Input({
   class: className,
-  type,
   name,
   label,
   placeholder,
@@ -35,7 +33,7 @@ export default function Input({
           'rounded-lg text-sm text-primary outline-tertiary',
           'placeholder:text-tertiary/65'
         )}
-        type={type}
+        type="text"
         name={name}
         placeholder={placeholder}
         defaultValue={defaultValue}
