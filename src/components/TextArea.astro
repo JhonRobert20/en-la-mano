@@ -1,10 +1,11 @@
 ---
 interface Props {
   class?: string
+  rows?: number
   placeholder: string
 }
 
-const { class: className, placeholder } = Astro.props
+const { class: className, rows, placeholder } = Astro.props
 ---
 
 <textarea
@@ -13,7 +14,7 @@ const { class: className, placeholder } = Astro.props
     'rounded-3xl text-xs outline-primary',
     className
   ]}
-  rows="4"
+  rows={rows ?? 4}
   placeholder={placeholder}
 >
 </textarea>

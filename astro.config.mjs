@@ -7,5 +7,6 @@ export default defineConfig({
   output: 'server',
   adapter: node({ mode: 'standalone' }),
   integrations: [preact(), tailwind({ applyBaseStyles: false })],
+  security: { checkOrigin: true },
   server: { host: true, port: 3000 }
 })

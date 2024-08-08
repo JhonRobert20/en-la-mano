@@ -8,7 +8,12 @@ const pages = [
   ['/admin/inicio', 'Inicio'],
   ['/admin/promociones', 'Promociones'],
   ['/admin/quienes-somos', 'Quiénes somos'],
-  ['/admin/reclamos', 'Reclamos']
+  ['/admin/reclamos', 'Reclamos'],
+  ['/admin/preguntas-frecuentes', 'Preguntas frecuentes'],
+  ['/admin/contacto', 'Contacto'],
+  ['/admin/terminos-y-condiciones', 'Términos y Condiciones'],
+  ['/admin/politicas-de-privacidad', 'Políticas de Privacidad'],
+  ['/admin/politicas-de-seguridad', 'Políticas de Seguridad']
 ]
 ---
 
@@ -37,7 +42,10 @@ const pages = [
     }
   </nav>
   <div class="mt-4 pt-4 border-t border-secondary">
-    <button class="m-2 transition-colors duration-75 hover:text-warning">
+    <button
+      class="m-2 transition-colors duration-75 hover:text-warning"
+      id="logout-button"
+    >
       Cerrar Sesión
     </button>
   </div>
@@ -61,4 +69,11 @@ const pages = [
 
     document.addEventListener('click', toggle)
   })
+
+  document
+    .getElementById('logout-button')
+    ?.addEventListener('click', async () => {
+      await fetch('/logout', { method: 'POST' })
+      location.reload()
+    })
 </script>

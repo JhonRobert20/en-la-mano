@@ -37,10 +37,13 @@ export default function Editor({
           Markdown,
           Essentials,
           Heading,
-          Alignment,
+          Link,
           Bold,
+          FontColor,
+          Alignment,
           Image,
-          ImageInsert
+          ImageInsert,
+          SimpleUploadAdapter
         },
         { default: es }
       ]) => {
@@ -50,8 +53,11 @@ export default function Editor({
           plugins: [
             Essentials,
             Heading,
+            Link,
             Bold,
-            ...(html ? [Alignment, Image, ImageInsert] : [Markdown])
+            ...(html
+              ? [FontColor, Alignment, Image, ImageInsert, SimpleUploadAdapter]
+              : [Markdown])
           ],
           toolbar: {
             items: [
@@ -59,24 +65,25 @@ export default function Editor({
               'redo',
               '|',
               'heading',
+              'link',
               'bold',
               ...(html
                 ? [
+                    'fontColor',
                     'alignment:left',
                     'alignment:center',
                     'alignment:right',
                     '|',
-                    'insertImageViaUrl'
+                    'insertImage'
                   ]
                 : [])
             ]
-          }
+          },
+          simpleUpload: { uploadUrl: `${location.origin}/assets/upload` }
         }).then(editor => {
           cleanup = editor.destroy
 
-          if (onInput) {
-            editor.model.document.on('change:data', once(onInput))
-          }
+          if (onInput) editor.model.document.on('change:data', once(onInput))
         })
       }
     )

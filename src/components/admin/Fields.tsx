@@ -44,7 +44,7 @@ export default function Fields({
   }, [])
 
   return (
-    <section class="basis-full bg-primary rounded-lg">
+    <section class="overflow-hidden basis-full bg-primary rounded-lg">
       {label && <h2 class="m-5 font-bold text-xl">{label}</h2>}
       <div ref={ref} class="grid">
         {children}

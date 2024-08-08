@@ -22,3 +22,8 @@ interface ClaimsData {
   description: string
   content: string
 }
+
+interface FrequentQuestionsData {
+  description: string
+  questions: string[][]
+}

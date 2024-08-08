@@ -1,6 +1,11 @@
+import { Lucia } from 'lucia'
 import split from 'just-split'
 import remove from 'just-remove'
 import db from './db'
+
+export const lucia = new Lucia(db.adapter, {
+  sessionCookie: { attributes: { secure: import.meta.env.PROD } },
+})
 
 export async function saveImages(
   data: FormDataEntryValue[],

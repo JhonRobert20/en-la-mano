@@ -38,8 +38,8 @@ const { slides, formContent, steps } = db.get<Data>('inicio')!
         />
         <label
           class:list={[
-            'mt-5 mb-9 grid grid-flow-col gap-x-2 text-[0.625rem]',
-            'text-primary/90'
+            'mt-5 mb-9 grid grid-flow-col gap-x-2 font-medium text-[0.625rem]',
+            'text-primary/85'
           ]}
         >
           <input
@@ -51,13 +51,13 @@ const { slides, formContent, steps } = db.get<Data>('inicio')!
           />
           <span>
             Leí y acepto los <a
-              class="inline-flex font-medium underline hover:opacity-90"
+              class="inline-flex font-semibold underline hover:opacity-90"
               href="/terminos-y-condiciones"
             >
               Términos y Condiciones
             </a> y
             <a
-              class="inline-flex font-medium underline hover:opacity-90"
+              class="inline-flex font-semibold underline hover:opacity-90"
               href="/politica-de-privacidad"
             >
               Política de Privacidad
