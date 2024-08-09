@@ -3,12 +3,16 @@ import Form from './Form'
 import Field from './Field'
 import ImageInput from './ImageInput'
 import Input from './Input'
+import Fields from './Fields'
+import Editor from './Editor'
+import Item from './Item'
 
 interface Props {
   socialMedia: SocialMedia | null
+  landings: string[]
 }
 
-export default function EnLaMano({ socialMedia }: Props) {
+export default function EnLaMano({ socialMedia, landings }: Props) {
   const { hasChanges, handleChange } = useForm()
 
   return (
@@ -47,6 +51,42 @@ export default function EnLaMano({ socialMedia }: Props) {
           onInput={handleChange}
         />
       </Field>
+      <Fields
+        label="Landings"
+        newItem={
+          <>
+            <Input label="Ruta" name="landings" path="/promo/" />
+            <ImageInput label="Banner" name="landings" required />
+            <Editor label="Descripción" name="landings" />
+          </>
+        }
+        onChange={handleChange}
+      >
+        {landings.map(([path, banner, description]) => (
+          <Item onDelete={handleChange}>
+            <Input
+              label="Ruta"
+              name="landings"
+              path="/promo/"
+              defaultValue={path}
+              onInput={handleChange}
+            />
+            <ImageInput
+              label="Banner"
+              name="landings"
+              defaultValue={banner}
+              onChange={handleChange}
+            />
+            <Editor
+              label="Descripción"
+              name="landings"
+              onInput={handleChange}
+            >
+              {description}
+            </Editor>
+          </Item>
+        ))}
+      </Fields>
     </Form>
   )
 }

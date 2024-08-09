@@ -1,26 +1,32 @@
 ---
 import db from '@/db'
+import { removeOrphanImages, saveImages } from '@/utils'
 import CMSLayout from '@/layouts/CMSLayout.astro'
 import EnLaMano from '@/components/admin/EnLaMano'
 
 const socialMedia = db.get<SocialMedia>('social-media')
+const landings = db.get<string[]>('landings')!
 
 if (Astro.request.method === 'POST') {
   const formData = await Astro.request.formData()
   const facebook = formData.get('facebook') || undefined
   const instagram = formData.get('instagram') || undefined
-
-  db.set('social-media', JSON.stringify({ facebook, instagram }))
-
-  await Promise.all([
+  const banners = formData.getAll('landings-image') as string[]
+  const [data] = await Promise.all([
+    saveImages(formData.getAll('landings'), 3, 1, banners),
     db.setImage(formData.get('logo') as File, 'logo.webp'),
     db.setImage(formData.get('logo-light') as File, 'logo-light.webp')
   ])
+
+  db.set('social-media', JSON.stringify({ facebook, instagram }))
+  db.set('landings', JSON.stringify(data))
+
+  removeOrphanImages([landings], [data], [1])
 
   return Astro.redirect('/admin')
 }
 ---
 
 <CMSLayout>
-  <EnLaMano socialMedia={socialMedia} client:load />
+  <EnLaMano socialMedia={socialMedia} landings={landings} client:load />
 </CMSLayout>

@@ -10,15 +10,20 @@ interface Props {
 
 const { sticky } = Astro.props
 const { pathname } = Astro.url
-
-const links = [
-  ['/', 'Inicio'],
-  ['/promociones', 'Promociones'],
-  ['/quienes-somos', 'Quiénes somos'],
-  ['/reclamos', 'Reclamos'],
-  ['/preguntas-frecuentes', 'Preguntas frecuentes'],
-  ['/contacto', 'Contacto']
-]
+const isPromo = pathname.startsWith('/promo/')
+const links = isPromo
+  ? [
+      ['/promociones', 'Promociones'],
+      ['/contacto', 'Contacto']
+    ]
+  : [
+      ['/', 'Inicio'],
+      ['/promociones', 'Promociones'],
+      ['/quienes-somos', 'Quiénes somos'],
+      ['/reclamos', 'Reclamos'],
+      ['/preguntas-frecuentes', 'Preguntas frecuentes'],
+      ['/contacto', 'Contacto']
+    ]
 ---
 
 <header
@@ -46,6 +51,7 @@ const links = [
     }
     <ul
       class:list={[
+        { 'mr-10 flex-grow justify-end': isPromo },
         'flex gap-x-8 lg:text-sm xl:text-base -lg:absolute -lg:top-full',
         '-lg:inset-x-0 -lg:hidden -lg:flex-col -lg:gap-y-4 -lg:pt-5 -lg:pb-6',
         '-lg:bg-linear-gradient -lg:bg-fixed -lg:text-center -lg:text-lg',
