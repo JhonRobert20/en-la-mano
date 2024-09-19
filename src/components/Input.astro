@@ -11,8 +11,9 @@ const { class: className, type, name, placeholder } = Astro.props
 
 <input
   class:list={[
+    className,
     'w-full h-10 px-5 bg-transparent border rounded-full text-xs',
-    className || 'border-primary outline-primary'
+    'border-primary outline-warning'
   ]}
   type={type}
   name={name}

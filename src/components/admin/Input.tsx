@@ -3,6 +3,7 @@ import { useId } from 'preact/hooks'
 
 interface Props {
   class?: string
+  type?: 'text' | 'url'
   name: string
   label?: string
   path?: string
@@ -14,6 +15,7 @@ interface Props {
 
 export default function Input({
   class: className,
+  type = 'text',
   name,
   label,
   path,
@@ -65,7 +67,7 @@ export default function Input({
           'rounded-lg text-sm text-primary outline-tertiary',
           'placeholder:text-tertiary/65'
         )}
-        type="text"
+        type={type}
         name={name}
         placeholder={placeholder}
         defaultValue={defaultValue}

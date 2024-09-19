@@ -14,6 +14,7 @@ module.exports = {
         primary: '#07024a',
         secondary: '#c644fd',
         tertiary: '#3f0b79',
+        success: '#25d366',
         warning: '#ff7100',
         neutral,
         gray: '#cbcbcb'

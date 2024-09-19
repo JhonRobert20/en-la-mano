@@ -4,41 +4,36 @@ import SiteLayout from '@/layouts/SiteLayout.astro'
 import Carousel from '@/components/Carousel'
 import Form from '@/components/Form.astro'
 import Steps from '@/components/Steps.astro'
-import Promotions from '@/components/Promotions.astro'
+import Player from '@/components/Player.astro'
 
 interface Data {
   formContent: string
   steps: Steps
 }
 
-const { formContent, steps } = db.get<Data>('inicio')!
 const landings = db.get<string[]>('landings')!
 const data = landings.find(([path]) => path === Astro.params.id)
 
 if (!data) return new Response(null, { status: 404, statusText: 'Not found' })
+
+const { formContent, steps } = db.get<Data>('inicio')!
 ---
 
 <SiteLayout sticky>
   <div class="relative overflow-hidden">
-    <Carousel
-      slides={[[data[1], 'Dale vida\na tus **proyectos**']]}
-      client:media="(min-width: 640px)"
-    />
+    <Carousel slides={[[data[1], data[2]]]} client:media="(min-width: 640px)" />
     <Form content={formContent} />
   </div>
   <Steps {...steps} />
-  <section class="my-28 text-center xl:my-32">
-    <h2 class="mx-5 text-3xl sm:text-[2.5rem]/normal">
-      Otras <strong class="font-extrabold text-secondary">promos</strong>
-    </h2>
-    <Promotions class="mt-14" limit={3} />
+  <section class="my-24 text-center">
+    <Player />
     <p
       class:list={[
         'mt-24 mx-5 font-light text-center leading-tight sm:mx-10',
         'lg:max-w-[55rem] lg:mx-auto'
       ]}
     >
-      {data[2]}
+      {data[3]}
     </p>
   </section>
 </SiteLayout>

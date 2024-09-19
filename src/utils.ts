@@ -4,7 +4,7 @@ import remove from 'just-remove'
 import db from './db'
 
 export const lucia = new Lucia(db.adapter, {
-  sessionCookie: { attributes: { secure: import.meta.env.PROD } },
+  sessionCookie: { attributes: { secure: false } }
 })
 
 export async function saveImages(

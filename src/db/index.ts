@@ -52,7 +52,7 @@ export default {
       .map(({ name }) => `/assets/${name}`)
   },
   async setImage(file: File, name?: string) {
-    if (file.type.startsWith('image')) {
+    if (file.type?.startsWith('image')) {
       const buffer = await file.arrayBuffer()
       const data = await sharp(buffer).webp().toBuffer()
 

@@ -1,0 +1,24 @@
+---
+import db from '@/db'
+import { removeOrphanImages, saveImages } from '@/utils'
+import CMSLayout from '@/layouts/CMSLayout.astro'
+import LandingsPage from '@/components/admin/Landings'
+
+const landings = db.get<string[]>('landings')!
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData()
+  const banners = formData.getAll('landings-image') as string[]
+  const data = await saveImages(formData.getAll('landings'), 4, 1, banners)
+
+  db.set('landings', JSON.stringify(data))
+
+  removeOrphanImages([landings], [data], [1])
+
+  return Astro.redirect('/admin/landings')
+}
+---
+
+<CMSLayout>
+  <LandingsPage data={landings} client:load />
+</CMSLayout>

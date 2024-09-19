@@ -21,11 +21,7 @@ const { content } = Astro.props
   <Fragment set:html={marked.parse(content, { breaks: true })} />
   <form class="mt-11 font-manrope">
     <Input type="number" placeholder="Cédula (sin puntos ni guiones)" />
-    <Input
-      class="mt-3 text-warning border-warning outline-warning"
-      type="number"
-      placeholder="Celular"
-    />
+    <Input class="mt-3" type="number" placeholder="Celular" />
     <label
       class:list={[
         'mt-5 mb-9 grid grid-flow-col gap-x-2 font-medium text-[0.625rem]',

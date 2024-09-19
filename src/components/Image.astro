@@ -4,16 +4,17 @@ import { inferRemoteSize } from 'astro:assets'
 interface Props {
   class?: string
   src: string
+  alt?: string
 }
 
-const { class: className, src } = Astro.props
+const { class: className, src, alt } = Astro.props
 const { width, height } = await inferRemoteSize(`${Astro.url.origin}${src}`)
 ---
 
 <img
   class={className}
   src={src}
-  alt=""
+  alt={alt || ''}
   width={width}
   height={height}
   loading="lazy"
