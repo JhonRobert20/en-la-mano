@@ -1,0 +1,24 @@
+---
+import { marked } from 'marked'
+import db from '@/db'
+import SiteLayout from '@/layouts/SiteLayout.astro'
+
+const status = Astro.request.headers.get('Status')
+
+if (!status) return Astro.redirect('/')
+
+const { title, description } = db.get<Status>(status)!
+---
+
+<SiteLayout>
+  <section class="max-w-4xl m-auto py-36 px-5 text-center sm:px-10 lg:px-20">
+    <h1
+      class="text-[2.5rem]/none text-warning mb-10"
+      set:html={marked.parseInline(title)}
+    />
+    <p
+      class="font-light leading-tight"
+      set:html={marked.parseInline(description, { breaks: true })}
+    />
+  </section>
+</SiteLayout>

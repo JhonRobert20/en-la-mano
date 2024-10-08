@@ -22,7 +22,7 @@ const { formContent, steps } = db.get<Data>('inicio')!
 <SiteLayout sticky>
   <div class="relative overflow-hidden">
     <Carousel slides={[[data[1], data[2]]]} client:media="(min-width: 640px)" />
-    <Form content={formContent} />
+    <Form content={formContent} landing={2} />
   </div>
   <Steps {...steps} />
   <section class="my-24 text-center">

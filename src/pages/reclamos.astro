@@ -30,11 +30,7 @@ const { description, content } = db.get<ClaimsData>('reclamos')!
       <div class="grid gap-y-4 gap-x-7 sm:grid-cols-2">
         <Input type="text" placeholder="Nombre" />
         <Input type="text" placeholder="Apellido" />
-        <Input
-          class="text-warning border-warning outline-warning"
-          type="number"
-          placeholder="Cédula (sin puntos ni guiones)"
-        />
+        <Input type="number" placeholder="Cédula (sin puntos ni guiones)" />
         <Input type="email" placeholder="Email" />
         <Input type="number" placeholder="Celular" />
         <Input type="number" placeholder="Teléfono" />

@@ -27,3 +27,10 @@ interface FrequentQuestionsData {
   description: string
   questions: string[][]
 }
+
+interface RequestForm {
+  title: string
+  description: string
+}
+
+interface Status extends RequestForm {}

@@ -1,7 +1,6 @@
 ---
 import { randomBytes, scrypt } from 'node:crypto'
-import { lucia } from '@/utils'
-import db from '@/db'
+import db, { auth } from '@/db'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Input from '@/components/Input.astro'
 import Button from '@/components/Button.astro'
@@ -40,8 +39,8 @@ if (Astro.request.method === 'POST') {
     }
   }).then(async success => {
     if (success) {
-      const session = await lucia.createSession('admin', {})
-      const { name, value, attributes } = lucia.createSessionCookie(session.id)
+      const session = await auth.createSession('admin', {})
+      const { name, value, attributes } = auth.createSessionCookie(session.id)
 
       Astro.cookies.set(name, value, attributes)
     }

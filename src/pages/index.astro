@@ -1,4 +1,5 @@
 ---
+import { actions } from 'astro:actions'
 import db from '@/db'
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import Carousel from '@/components/Carousel'
@@ -6,12 +7,33 @@ import Form from '@/components/Form.astro'
 import Steps from '@/components/Steps.astro'
 import Player from '@/components/Player.astro'
 import Promotions from '@/components/Promotions.astro'
-import Image from '@/components/Image.astro'
 
 interface Data {
   slides: Slide[]
   formContent: string
   steps: Steps
+}
+
+const requestCash = Astro.getActionResult(actions.requestCash)
+
+if (requestCash?.data) {
+  const { success, docNumber } = requestCash.data
+
+  return Astro.rewrite(
+    new Request(new URL(`./${success ? 'form' : 'result'}`, Astro.url), {
+      headers: success ? { 'Doc-Number': docNumber } : { Status: 'rejected' }
+    })
+  )
+}
+
+const confirmRequest = Astro.getActionResult(actions.confirmRequest)
+
+if (confirmRequest?.data) {
+  return Astro.rewrite(
+    new Request(new URL('./result', Astro.url), {
+      headers: { Status: confirmRequest.data.success ? 'accepted' : 'rejected' }
+    })
+  )
 }
 
 const { slides, formContent, steps } = db.get<Data>('inicio')!
@@ -20,7 +42,7 @@ const { slides, formContent, steps } = db.get<Data>('inicio')!
 <SiteLayout sticky>
   <div class="relative overflow-hidden">
     <Carousel slides={slides} client:media="(min-width: 640px)" />
-    <Form content={formContent} />
+    <Form content={formContent} landing={1} />
   </div>
   <Steps {...steps} />
   <div class="px-5 my-24 sm:px-10">
@@ -34,15 +56,4 @@ const { slides, formContent, steps } = db.get<Data>('inicio')!
     </h2>
     <Promotions class="mt-14" limit={3} />
   </section>
-  <div class="fixed bottom-4 right-5 flex gap-3.5 sm:right-10 xl:right-15">
-    <Image class="w-[3.25rem]" src="/images/unit.webp" alt="UNIT" />
-    <a
-      class="size-[3.25rem] grid place-items-center bg-success rounded-full"
-      href="https://wa.me/59891866565"
-      target="_blank"
-      rel="noreferrer"
-    >
-      <Image src="/icons/whatsapp.svg" alt="WhatsApp" />
-    </a>
-  </div>
 </SiteLayout>

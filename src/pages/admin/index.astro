@@ -5,11 +5,17 @@ import EnLaMano from '@/components/admin/EnLaMano'
 
 const socialMedia = db.get<SocialMedia>('social-media')
 const video = db.get<string>('video', false)!
+const requestForm = db.get<RequestForm>('request-form')!
+const accepted = db.get<Status>('accepted')!
+const rejected = db.get<Status>('rejected')!
 
 if (Astro.request.method === 'POST') {
   const formData = await Astro.request.formData()
   const facebook = formData.get('facebook') || undefined
   const instagram = formData.get('instagram') || undefined
+  const request = formData.getAll('request')
+  const accepted = formData.getAll('accepted')
+  const rejected = formData.getAll('rejected')
 
   await Promise.all([
     db.setImage(formData.get('logo') as File, 'logo.webp'),
@@ -18,11 +24,30 @@ if (Astro.request.method === 'POST') {
 
   db.set('social-media', JSON.stringify({ facebook, instagram }))
   db.set('video', formData.get('video') as string)
+  db.set(
+    'request-form',
+    JSON.stringify({ title: request[0], description: request[1] })
+  )
+  db.set(
+    'accepted',
+    JSON.stringify({ title: accepted[0], description: accepted[1] })
+  )
+  db.set(
+    'rejected',
+    JSON.stringify({ title: rejected[0], description: rejected[1] })
+  )
 
   return Astro.redirect('/admin')
 }
 ---
 
 <CMSLayout>
-  <EnLaMano socialMedia={socialMedia} video={video} client:load />
+  <EnLaMano
+    socialMedia={socialMedia}
+    video={video}
+    requestForm={requestForm}
+    accepted={accepted}
+    rejected={rejected}
+    client:load
+  />
 </CMSLayout>

@@ -1,7 +1,8 @@
 ---
 import Header from '@/components/Header.astro'
-import BaseLayout from './BaseLayout.astro'
+import Image from '@/components/Image.astro'
 import Footer from '@/components/Footer.astro'
+import BaseLayout from './BaseLayout.astro'
 import '@/styles/graphie.css'
 import '@/styles/manrope.css'
 import 'tailwindcss/tailwind.css'
@@ -29,8 +30,19 @@ interface Props {
     />
   </Fragment>
   <Header sticky={Astro.props.sticky} />
-  <main>
+  <main class="min-h-svh flex flex-col">
     <slot />
   </main>
+  <div class="fixed bottom-4 right-5 flex gap-3.5 sm:right-10 xl:right-15">
+    <Image class="w-[3.25rem]" src="/images/unit.webp" alt="UNIT" />
+    <a
+      class="size-[3.25rem] grid place-items-center bg-success rounded-full"
+      href="https://wa.me/59891866565"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Image src="/icons/whatsapp.svg" alt="WhatsApp" />
+    </a>
+  </div>
   <Footer />
 </BaseLayout>

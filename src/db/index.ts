@@ -1,12 +1,17 @@
 import { randomUUID } from 'node:crypto'
-import Database from 'better-sqlite3'
+import { Lucia } from 'lucia'
 import { BetterSqlite3Adapter } from '@lucia-auth/adapter-sqlite'
+import Database from 'better-sqlite3'
 import sharp from 'sharp'
 
 const db = new Database('src/db/storage.db')
 
+export const auth = new Lucia(
+  new BetterSqlite3Adapter(db, { user: 'user', session: 'session' }),
+  { sessionCookie: { attributes: { secure: false } } }
+)
+
 export default {
-  adapter: new BetterSqlite3Adapter(db, { user: 'user', session: 'session' }),
   get<T>(key: string, parse = true): T | null {
     const data = db
       .prepare<string, { value: string }>(
@@ -45,9 +50,7 @@ export default {
   },
   getImages() {
     return db
-      .prepare<[], { name: string }>(
-        "SELECT name From images"
-      )
+      .prepare<[], { name: string }>('SELECT name From images')
       .all()
       .map(({ name }) => `/assets/${name}`)
   },
