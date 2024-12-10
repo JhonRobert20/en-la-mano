@@ -31,6 +31,7 @@
     "preact": "^10.24.2",
     "sharp": "^0.33.5",
     "sortablejs": "^1.15.3",
+    "swiper": "^11.1.15",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
   }

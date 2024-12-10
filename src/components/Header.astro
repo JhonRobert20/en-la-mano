@@ -44,9 +44,13 @@ const links = isPromo
     </button>
     {
       sticky ? (
-        <Logo />
+        <a href="/">
+          <Logo />
+        </a>
       ) : (
-        <Image class="w-auto h-12" src="/assets/logo-light.webp" />
+        <a href="/">
+          <Image class="w-auto h-12" src="/assets/logo-light.webp" />   
+        </a>
       )
     }
     <ul

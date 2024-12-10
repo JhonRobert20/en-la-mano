@@ -1,0 +1,46 @@
+---
+import PromoCard from '@/components/Promotions/PromoCard.astro';
+import db from '@/db';
+
+const promotions = db.get<string[]>('promociones') || [];
+---
+
+<div class="swiper mySwiper relative">
+  <div class="swiper-wrapper">
+    {promotions.map(([title, bannerId, miniatureId, _]) => (
+      <div class="swiper-slide !flex justify-center">
+        <PromoCard image={miniatureId} />
+        
+      </div>
+    ))}
+    
+  </div>
+
+  <div class="swiper-button-prev "></div>
+  <div class="swiper-button-next "></div>
+  <div class="swiper-pagination"></div>
+
+</div>
+
+<script>
+  import Swiper from 'swiper';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+  import 'swiper/css/pagination';
+  import { Navigation, Pagination } from "swiper/modules";
+  import "swiper/css/navigation";
+
+  const swiper = new Swiper(".swiper", {
+    modules: [Navigation, Pagination], 
+    loop: true,
+    slidesPerView: 2,
+    spaceBetween: 3,
+    pagination: {
+    el: '.swiper-pagination',
+  },
+    navigation: {
+      prevEl: ".swiper-button-prev",
+      nextEl: ".swiper-button-next",
+    }
+  });
+</script>

@@ -34,6 +34,41 @@ export default {
       )
       .get('admin')
   },
+  updatePromotions() {
+    let existingPromotions = this.get<string>('promociones', false);
+  
+    console.log('Valor recuperado de promociones:', existingPromotions);
+  
+    // Si es un string, intentamos convertirlo en un array JSON
+    if (typeof existingPromotions === 'string') {
+      try {
+        existingPromotions = JSON.parse(existingPromotions);
+      } catch (error) {
+        console.error('Error al analizar JSON de promociones:', error);
+        existingPromotions = []; // Si no se puede analizar, inicializamos como array vacío
+      }
+    }
+  
+    // Verificar que es un array
+    if (!Array.isArray(existingPromotions)) {
+      console.error('El valor de promociones no es un array. Valor recibido:', existingPromotions);
+      existingPromotions = []; // Si no es un array, inicializamos como array vacío
+    }
+  
+    // Ahora podemos realizar el `map` porque sabemos que es un array
+    const updatedPromotions = existingPromotions.map(([title, banner, content]) => [
+      title,
+      banner,
+      banner, // Nueva columna para "miniature"
+      content,
+    ]);
+  
+    // Guardamos las promociones actualizadas
+    this.set('promociones', JSON.stringify(updatedPromotions));
+  
+    console.log('Promociones actualizadas:', updatedPromotions);
+  },
+  
   setUser(username: string, hash: string) {
     db.prepare('INSERT INTO user (id, username, hash) VALUES (?, ?, ?)').run(
       'admin',

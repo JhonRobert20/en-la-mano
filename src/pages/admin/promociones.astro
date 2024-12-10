@@ -1,28 +1,98 @@
 ---
 import db from '@/db'
-import saveImages from '@/utils/saveImages'
-import removeOrphanImages from '@/utils/removeOrphanImages'
+import saveImagesSimple from '@/utils/saveImagesSimple'
 import CMSLayout from '@/layouts/CMSLayout.astro'
 import Promotions from '@/components/admin/Promotions'
 
 const description = db.get<string>('promociones-description', false)!
-const data = db.get<string[]>('promociones')!
+let data = db.get<string[]>('promociones')!
 
 if (Astro.request.method === 'POST') {
   const formData = await Astro.request.formData()
-  const promoImages = formData.getAll('promos-image') as string[]
-  const [promotions] = await Promise.all([
-    saveImages(formData.getAll('promos'), 3, 1, promoImages),
-    db.setImage(formData.get('hero') as File, 'hero-promociones.webp')
-  ])
+  console.log(formData)
 
-  db.set('promociones-description', formData.get('description') as string)
-  db.set('promociones', JSON.stringify(promotions))
+  const promoNames = formData.getAll('promos-name') as string[];
+  const promoContents = formData.getAll('promos-content') as string[];
+  const promoBannerImages: File[] = [];
+  const promoMiniatureImages: File[] = [];
+  const a: string[] = []
+  const b: string[] = []
 
-  removeOrphanImages([data], [promotions], [1])
 
-  return Astro.redirect('/admin/promociones')
+  let index = 0;
+  while (formData.has(`promos-banner-${index}`) || formData.has(`promos-miniature-${index}`)) {
+    promoBannerImages.push(formData.get(`promos-banner-${index}`) as File);
+    promoMiniatureImages.push(formData.get(`promos-miniature-${index}`) as File);
+    a.push(formData.get(`promos-banner-${index}-image`) as string || '');
+    b.push(formData.get(`promos-miniature-${index}-image`) as string || '');
+
+    index++;
+  }
+
+// Verificar que las longitudes coincidan
+if (
+  promoNames.length !== promoBannerImages.length ||
+  promoNames.length !== promoMiniatureImages.length ||
+  promoNames.length !== promoContents.length
+) {
+  throw new Error('Los datos de las promociones no coinciden en cantidad.');
 }
+
+const validBannerImages = promoBannerImages
+    .map((image, index) => ({ image, index }))
+    .filter(({ image }) => image.size > 0);
+
+  const validMiniatureImages = promoMiniatureImages
+    .map((image, index) => ({ image, index }))
+    .filter(({ image }) => image.size > 0);
+
+const promotions = promoNames.map((name, index) => {
+  if (!name || !promoContents[index]) {
+    throw new Error(`Faltan datos para la promoción en el índice ${index}.`);
+  }
+  const bannerImage = validBannerImages.find(({ index: validIndex }) => validIndex === index);
+  const miniatureImage = validMiniatureImages.find(({ index: validIndex }) => validIndex === index);
+  
+  const banner = bannerImage ? bannerImage.image : a[index];
+  const miniature = miniatureImage ? miniatureImage.image : b[index];
+
+  return [
+    name,
+    banner,
+    miniature,
+    promoContents[index] // Contenido de la promoción
+  ];
+});
+  
+
+const bannerImagesToSave = validBannerImages.map(({ image }) => image);
+const miniatureImagesToSave = validMiniatureImages.map(({ image }) => image);
+
+const [savedBannerImages, savedMiniatureImages] = await Promise.all([
+  bannerImagesToSave.length > 0 
+    ? saveImagesSimple(bannerImagesToSave) 
+    : Promise.resolve([]),
+  miniatureImagesToSave.length > 0 
+    ? saveImagesSimple(miniatureImagesToSave) 
+    : Promise.resolve([])
+]);
+const formattedPromotions = promotions.map((promo, index) => {
+  const bannerImage = validBannerImages.find(({ index: validIndex }) => validIndex === index);
+  const miniatureImage = validMiniatureImages.find(({ index: validIndex }) => validIndex === index);
+  return [
+    promo[0],
+    bannerImage ? bannerImage.image.name : promo[1],  
+    miniatureImage ? miniatureImage.image.name : promo[2], 
+    promo[3] 
+  ];
+});
+
+  db.set('promociones', JSON.stringify(formattedPromotions))
+  db.set('promociones-description', formData.get('description') as string)
+
+  return Astro.redirect('/admin/promociones');
+}
+
 ---
 
 <CMSLayout>

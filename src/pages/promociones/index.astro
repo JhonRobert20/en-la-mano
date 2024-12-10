@@ -2,7 +2,7 @@
 import db from '@/db'
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import Hero from '@/components/Hero.astro'
-import Promotions from '@/components/Promotions.astro'
+import Promotions from '@/components/Promotions/Promotions.astro'
 
 const description = db.get<string>('promociones-description', false)
 ---

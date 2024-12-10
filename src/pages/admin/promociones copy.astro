@@ -1,0 +1,112 @@
+---
+import db from '@/db'
+import saveImages from '@/utils/saveImages'
+import removeOrphanImages from '@/utils/removeOrphanImages'
+import CMSLayout from '@/layouts/CMSLayout.astro'
+import Promotions from '@/components/admin/Promotions'
+
+const description = db.get<string>('promociones-description', false)!
+const data = db.get<string[]>('promociones')!
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData()
+  console.log(formData)
+
+  const promoNames = formData.getAll('promos-name') as string[]; // Nombres de las promociones
+const promoBannerImages = formData.getAll('promos-banner-image') as string[]; // Imágenes del banner
+const promoMiniatureImages = formData.getAll('promos-miniature-image') as string[]; // Imágenes de miniatura
+const promoContents = formData.getAll('promos-content') as string[]; // Contenido de las promociones
+console.log(promoNames)
+console.log(promoBannerImages, "banner")
+console.log(promoMiniatureImages, "miniatures")
+console.log(promoContents, "contents")
+
+// Verificar que las longitudes coincidan
+if (
+  promoNames.length !== promoBannerImages.length ||
+  promoNames.length !== promoMiniatureImages.length ||
+  promoNames.length !== promoContents.length
+) {
+  throw new Error('Los datos de las promociones no coinciden en cantidad.');
+}
+
+// Crear la estructura inicial de promociones con imágenes y contenido
+const promotions = promoNames.map((name, index) => {
+  if (!name || !promoContents[index]) {
+    throw new Error(`Faltan datos para la promoción en el índice ${index}.`);
+  }
+
+  return [
+    name, // Nombre de la promoción
+    promoBannerImages[index] || '', // Imagen del banner (vacío si no hay)
+    promoMiniatureImages[index] || '', // Imagen de la miniatura (vacío si no hay)
+    promoContents[index] // Contenido de la promoción
+  ];
+});
+
+// Guardar las imágenes (asegurando que no se mezclen valores)
+const [savedBannerImages, savedMiniatureImages] = await Promise.all([
+  saveImages(
+    promotions.map(promo => promo[1]), // Solo las imágenes del banner
+    3, // Número de inputs
+    1, // Índice de imagen en el grupo
+    promoBannerImages // Nombres originales de las imágenes
+  ),
+  saveImages(
+    promotions.map(promo => promo[2]), // Solo las imágenes de miniatura
+    3, // Número de inputs
+    1, // Índice de imagen en el grupo
+    promoMiniatureImages // Nombres originales de las imágenes
+  )
+]);
+
+// Validar que las imágenes guardadas no sean undefined o mezcladas
+const flattenedSavedBannerImages = savedBannerImages.map((image, index) => {
+  if (!image || image === 'undefined') {
+    console.error(`Error al guardar la imagen del banner en el índice ${index}`);
+    return promotions[index][1]; // Retorna el valor original si falla el guardado
+  }
+  console.log("sin fallo 1")
+  return Array.isArray(image) ? image[0] : image;
+});
+
+const flattenedSavedMiniatureImages = savedMiniatureImages.map((image, index) => {
+  if (!image || image === 'undefined') {
+    console.error(`Error al guardar la imagen de la miniatura en el índice ${index}`);
+    return promotions[index][2]; // Retorna el valor original si falla el guardado
+  }
+  console.log("sin fallo 2")
+  return Array.isArray(image) ? image[0] : image;
+});
+
+// Asociar las imágenes guardadas a las promociones
+const formattedPromotions = promotions.map((promo, index) => [
+  promo[0], // Nombre de la promoción
+  flattenedSavedBannerImages[index] || promo[1], // Banner guardado o valor original
+  flattenedSavedMiniatureImages[index] || promo[2], // Miniatura guardada o valor original
+  promo[3] // Contenido de la promoción
+]);
+
+// Verificar el resultado
+console.log(flattenedSavedBannerImages, "flattened saved banner");
+console.log(flattenedSavedMiniatureImages, "flattened miniatures");
+console.log(formattedPromotions, "formatted promotions");
+
+
+  console.log(formattedPromotions, "formatted promotions");
+
+  // Guarda los datos de las promociones y descripción
+  db.set('promociones-description', formData.get('description') as string)
+  db.set('promociones', JSON.stringify(formattedPromotions))
+
+  // Elimina imágenes huérfanas si es necesario
+  removeOrphanImages([data], [formattedPromotions], [1])
+
+  return Astro.redirect('/admin/promociones')
+}
+
+---
+
+<CMSLayout>
+  <Promotions description={description} data={data} client:load />
+</CMSLayout>

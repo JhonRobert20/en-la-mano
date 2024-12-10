@@ -40,14 +40,14 @@ export default function Promotions({ description, data }: Props) {
         newItem={
           <>
             <Input class="max-w-xs" label="Nombre" name="promos-name" required />
-            <ImageInput label="Banner" name={`promos-banner-${data.length}`} required />
-            <ImageInput label="Miniature" name={`promos-miniature-${data.length}`} required />
+            <ImageInput label="Banner" name="promos-banner" required />
+            <ImageInput label="Miniature" name="promos-miniature" required />
             <Editor label="Contenido" name="promos-content" html />
           </>
         }
         onChange={handleChange}
       >
-        {data.map(([name, banner, miniature, content], index) => (
+        {data.map(([name, banner, miniature, content]) => (
           <Item onDelete={handleChange}>
             <Input
               class="max-w-xs"
@@ -60,14 +60,14 @@ export default function Promotions({ description, data }: Props) {
             <ImageInput
               class="max-w-xs"
               label="Banner"
-              name={`promos-banner-${index}`}
+              name="promos"
               defaultValue={banner}
               onChange={handleChange}
             />
             <ImageInput
               class="max-w-xs"
               label="Miniature"
-              name={`promos-miniature-${index}`}
+              name="promos-miniature"
               defaultValue={miniature}
               onChange={handleChange}
             />

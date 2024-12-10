@@ -5,8 +5,7 @@ import Hero from '@/components/Hero.astro'
 import Button from '@/components/Button.astro'
 
 const promotions = db.get<string[]>('promociones')!
-const data = promotions.find(([, id]) => id.slice(0, -5) === Astro.params.id)
-
+const data = promotions.find(([,,id]) => id.slice(0, -5) === Astro.params.id)
 if (!data) return new Response(null, { status: 404, statusText: 'Not found' })
 ---
 
@@ -17,7 +16,7 @@ if (!data) return new Response(null, { status: 404, statusText: 'Not found' })
       'mt-18 px-5 font-light text-center leading-tight sm:px-10 lg:px-20',
       'xl:px-25'
     ]}
-    set:html={data[2]}
+    set:html={data[3]}
   />
   <Button class="mt-11 mb-24 mx-auto" href="/">Solicitar promo</Button>
 </SiteLayout>

@@ -6,7 +6,7 @@ import Carousel from '@/components/Carousel'
 import Form from '@/components/Form.astro'
 import Steps from '@/components/Steps.astro'
 import Player from '@/components/Player.astro'
-import Promotions from '@/components/Promotions.astro'
+import PromoSlider from '@/components/Promotions/PromoSlider.astro'
 
 interface Data {
   slides: Slide[]
@@ -50,10 +50,10 @@ const { slides, formContent, steps } = db.get<Data>('inicio')!
   </div>
   <section class="mb-28 text-center xl:mb-32">
     <h2 class="mx-5 text-3xl sm:text-[2.5rem]/normal">
-      Conocé nuestras <strong class="font-extrabold text-secondary">
-        promociones
+      Nuestros <strong class="font-extrabold text-secondary">
+        productos
       </strong>
     </h2>
-    <Promotions class="mt-14" limit={3} />
+    <PromoSlider class="mt-14" />
   </section>
 </SiteLayout>
