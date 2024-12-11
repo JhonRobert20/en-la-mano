@@ -8,26 +8,20 @@
 
 
 .swiper-button-prev::after {
-  background-image: url('icons/flecha.svg');
+  background-image: url('/icons/flecha.svg');
   background-repeat: no-repeat;
   width: 100px;
   height: 100px;
   color: #FFFFFF00;
 }
 .swiper-button-next::after {
-  background-image: url('icons/flecha2.svg');
+  background-image: url('/icons/flecha2.svg');
   background-repeat: no-repeat;
   width: 100px;
   height: 100px;
   color: #FFFFFF00;
 }
-.swiper-pagination-bullet{
-  background-image: url('icons/flecha2.svg');
-  background-repeat: no-repeat;
-  width: 100px;
-  height: 100px;
-  color: #FFFFFF00;
-}
+
 
 
 .swiper-pagination span {
