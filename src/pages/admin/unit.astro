@@ -1,0 +1,19 @@
+---
+import db from '@/db'
+import CMSLayout from '@/layouts/CMSLayout.astro'
+import HTML from '@/components/admin/HTML'
+
+const content = db.get<string>('unit', false)!
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData()
+
+  db.set('unit', formData.get('content') as string)
+
+  return Astro.redirect('/admin/unit')
+}
+---
+
+<CMSLayout>
+  <HTML content={content} client:load />
+</CMSLayout>
