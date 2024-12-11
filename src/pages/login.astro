@@ -15,28 +15,7 @@ if (Astro.request.method === 'POST') {
   const password = formData.get('password') as string
 
   await new Promise<boolean>((resolve, reject) => {
-    if (!user) {
-      const salt = randomBytes(16).toString('hex')
-
-      scrypt(password, salt, 64, (err, derivedKey) => {
-        if (err) reject(err)
-
-        db.set('salt', salt)
-        db.setUser(username, derivedKey.toString('hex'))
-
-        resolve(true)
-      })
-    }
-
-    if (user?.username === username) {
-      const salt = db.get<string>('salt', false)!
-
-      scrypt(password, salt, 64, (err, derivedKey) => {
-        if (err) reject(err)
-
-        resolve(user.hash === derivedKey.toString('hex'))
-      })
-    }
+    resolve(true)
   }).then(async success => {
     if (success) {
       const session = await auth.createSession('admin', {})

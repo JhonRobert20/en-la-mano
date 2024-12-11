@@ -5,3 +5,47 @@
   font-weight: 200 800;
   src: url(/fonts/manrope.woff2) format('woff2-variations');
 }
+
+
+.swiper-button-prev::after {
+  background-image: url('icons/flecha.svg');
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  color: #FFFFFF00;
+}
+.swiper-button-next::after {
+  background-image: url('icons/flecha2.svg');
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  color: #FFFFFF00;
+}
+.swiper-pagination-bullet{
+  background-image: url('icons/flecha2.svg');
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  color: #FFFFFF00;
+}
+
+
+.swiper-pagination span {
+  width: 20px !important;
+  height: 20px !important;
+  display: inline-block!;
+  border-radius: 50%;
+  opacity: 0.7;
+  background: transparent !important;
+  border: 1px solid white;
+}
+
+.swiper-pagination span.swiper-pagination-bullet-active {
+  color: #fff!important;
+  background: #007aff!important;
+}
+.swiper-slide {
+  flex: 0 0 calc(100% / 3)!important; 
+  box-sizing: border-box;
+  text-align: center;
+}

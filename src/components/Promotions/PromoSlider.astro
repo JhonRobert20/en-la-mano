@@ -5,19 +5,22 @@ import db from '@/db';
 const promotions = db.get<string[]>('promociones') || [];
 ---
 
-<div class="swiper mySwiper relative">
-  <div class="swiper-wrapper">
+<div class="swiper mySwiper !relative">
+  <div class="swiper-wrapper !flex  !mb-5 pl-12">
     {promotions.map(([title, bannerId, miniatureId, _]) => (
-      <div class="swiper-slide !flex justify-center">
+      <div class="swiper-slide !flex">
         <PromoCard image={miniatureId} />
-        
       </div>
     ))}
     
   </div>
+  <div class="button-swiper">
+    <div class="swiper-button-prev swiper-button-disabled !top-[40%]"></div>
+    <div class="swiper-button-next swiper-button-disabled !top-[40%]"></div>
 
-  <div class="swiper-button-prev "></div>
-  <div class="swiper-button-next "></div>
+  </div>
+
+  
   <div class="swiper-pagination"></div>
 
 </div>
@@ -32,15 +35,15 @@ const promotions = db.get<string[]>('promociones') || [];
 
   const swiper = new Swiper(".swiper", {
     modules: [Navigation, Pagination], 
-    loop: true,
+    loop: false,
     slidesPerView: 3,
-    spaceBetween: 3,
+    spaceBetween: 0,
     pagination: {
     el: '.swiper-pagination',
   },
     navigation: {
       prevEl: ".swiper-button-prev",
       nextEl: ".swiper-button-next",
-    }
+    },
   });
 </script>
