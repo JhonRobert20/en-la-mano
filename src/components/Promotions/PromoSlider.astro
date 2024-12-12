@@ -6,7 +6,7 @@ const promotions = db.get<string[]>('promociones') || [];
 ---
 
 <div class="swiper mySwiper !relative">
-  <div class="swiper-wrapper !flex  !mb-5 pl-12">
+  <div class="swiper-wrapper !flex !mb-5">
     {promotions.map(([title, bannerId, miniatureId, _]) => (
       <div class="swiper-slide !flex">
         <PromoCard image={miniatureId} />
@@ -14,6 +14,7 @@ const promotions = db.get<string[]>('promociones') || [];
     ))}
     
   </div>
+
   <div class="button-swiper">
     <div class="swiper-button-prev swiper-button-disabled !top-[40%]"></div>
     <div class="swiper-button-next swiper-button-disabled !top-[40%]"></div>
@@ -35,9 +36,17 @@ const promotions = db.get<string[]>('promociones') || [];
 
   const swiper = new Swiper(".swiper", {
     modules: [Navigation, Pagination], 
-    loop: false,
-    slidesPerView: 3,
+    loop: true,
+    slidesPerView: 1,
     spaceBetween: 0,
+    breakpoints: {
+      800: {
+      slidesPerView: 2,
+      },
+      900: {
+        slidesPerView: 3,
+      },
+    },
     pagination: {
     el: '.swiper-pagination',
   },
